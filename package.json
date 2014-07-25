@@ -1,0 +1,52 @@
+{
+    "name": "Infographic-Generator",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "nodemon InfographicGenerator.js",
+        "test":  "mocha   test/InfographicGeneratorTest.js;"
+    },
+    "dependencies": {
+        "async":           "*",
+        "body-parser":     "*",
+        "compression":     "*",
+        "connect":         "*",
+        "connect-domain":  "*",
+        "connect-flash":   "*",
+        "connect-mongo":   "*",
+        "cookie-parser":   "*",
+        "datejs":          "*",
+        "express":         "*",
+        "express-error-handler": "*",
+        "express-session": "*",
+        "hogan.js":        "*",
+        "http-auth":       "*",
+        "method-override": "*",
+        "mmm":             "*",
+        "mongojs":         "*",
+        "morgan":          "*",
+        "node-uuid":       "*",
+        "node.extend":     "*",
+        "process":         "*",
+        "q":               "*",
+        "serve-favicon":   "*",
+        "underscore":      "*",
+        "unirest":         "*"
+    },
+    "devDependencies": {
+        "karma":           "*",
+        "loadtest":        "*",
+        "nodemon":         "*",
+        "mocha":           "*",
+        "yadda":           "*"
+    },
+    "unload": {
+        "mongodb":         "1.3.x",
+        "ipfilter":        "*",
+        "mongoose":        "3.6.x",
+        "mongoose-auto-increment":      "2.1.x",
+        "mongoose-concrete-timestamps": "0.1.x",
+        "multi-node":      "0.2.x",
+        "jsonpath-rep":    "0.0.x"
+    }
+}

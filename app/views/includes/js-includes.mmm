@@ -1,0 +1,11 @@
+<div id="javascript-includes">
+    <script src="/bower/bootstrap-css/js/bootstrap.js"></script>
+
+    {{!
+    <script src="/bower/fastclick/lib/fastclick.js"></script>
+    <script src="/bower/jquery-equal-height/af.equal-height.js"></script>
+    <script src="/bower/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="/bower/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/bower/jquery-form/jquery.form.js"></script>
+    }}
+</div>

@@ -1,0 +1,19 @@
+{
+    "verbose": true,
+    "ignore": [
+        ".git/",
+        ".sass-cache/",
+        "node_modules/",
+        "bower/",
+        "public/",
+        "test/",
+        "_sandbox/"
+    ],
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "execMap": {
+        "js": "node --harmony"
+    },
+    "ext": "js json"
+}

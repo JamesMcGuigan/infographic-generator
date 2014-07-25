@@ -1,0 +1,5 @@
+<link rel="stylesheet" href="/bower/reset-css/reset.css"/>
+<link rel="stylesheet" href="/bower/bootstrap-css/css/bootstrap.css"/>
+<link rel="stylesheet" href="/bower/bootstrap-css/css/bootstrap.theme.css"/>
+<link rel="stylesheet" href="/img/sprite/sprite.css" />
+<link rel="stylesheet" href="/scss/infographic.css" />

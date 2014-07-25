@@ -1,0 +1,3 @@
+<article class="row padding">
+    {{{ text.content }}}
+</article>

@@ -1,0 +1,64 @@
+{
+  "name":    "Infographic Generator",
+  "version": "1.0.0",
+  "main":    "",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt",
+    "**/.*",
+    "_sandbox",
+    ".git",
+    ".idea",
+    "node_modules",
+    "bower_components",
+    "bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular":             "*",
+    "d3":                  "*",
+    "reset-css":           "*",
+    "fastclick":           "*",
+    "jquery":              "jquery#2",
+    "jquery-legacy":       "jquery#1.10",
+    "jquery-placeholder":  "*",
+    "jquery-equal-height": "https://github.com/JamesMcGuigan/jquery-equal-height.git",
+    "jquery-easing":       "*",
+    "jquery-form":         "*",
+    "modernizr":           "*",
+    "bootstrap-css":       "*",
+    "underscore":          "*",
+    "html5shiv":           "*",
+    "nwmatcher":           "*",
+    "selectivizr":         "*",
+    "respond":             "*",
+    "css3pie":             "*"
+  },
+  "devDependencies": {
+    "karma":               "*",
+    "lodash":              "*"
+  },
+  "vendor-manual": {
+     "iepngfix":          "http://www.twinhelix.com/css/iepngfix/iepngfix.zip"
+  },
+  "unload": {
+    "angular":             "*",
+    "foundation-5":        "foundation#5",
+    "foundation-3":        "http://foundation.zurb.com/cdn/releases/foundation-3.2.5.zip",
+    "jquery-ui":           "*",
+    "jquery.cookie":       "*",
+    "jquery.easing":       "*",
+    "parallax":            "*",
+    "requirejs":           "*",
+    "requirejs-plugins":   "*",
+    "jquery.autocomplete": "devbridge/jQuery-Autocomplete#1.2.7",
+    "pngfix":              "http://perishablepress.com/wp/wp-content/online/code/png-htc-fix.zip"
+  },
+  "authors": [
+    "James McGuigan <james.mcguigan.personal@gmail.com>"
+  ],
+  "license":  "Copyright James McGuigan",
+  "homepage": "infographic.jamesmcguigan.com",
+  "private":  false
+}

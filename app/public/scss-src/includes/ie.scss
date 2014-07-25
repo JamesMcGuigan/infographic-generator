@@ -1,0 +1,50 @@
+@import "settings";
+
+.lt-ie8 {
+//  img, div, input { behavior: url("/bower/iepngfix/iepngfix.htc"); } // breaks background-position
+//  behavior: url(/htc/pngfix/index.htc);
+
+  img {
+    behavior: url("/vendor/iepngfix/iepngfix.htc");
+  }
+//  img {
+//        background: transparent;
+//        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */
+//        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */
+//  }
+
+}
+.lt-ie9 {
+
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering#Examples
+  img {
+    image-rendering: -moz-crisp-edges;         /* Firefox */
+    image-rendering:   -o-crisp-edges;         /* Opera */
+    image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: bicubic;           /* IE (non-standard property) */
+    zoom: 1;
+  }
+
+  button, .button, .round, .itunes-button, .googleplay-button {
+    behavior: url(/htc/css3pie/PIE.htc);
+  }
+
+  video,
+  .show-for-small-only,
+  .show-for-medium-only,
+  .exit-off-canvas,
+  .right-off-canvas-menu,
+  .left-off-canvas-menu,
+  .off-canvas-menu {
+    display: none;
+  }
+
+  video, .video {
+    text-align: center;
+    width: auto !important;
+    width: auto !important;
+  }
+}
+.lt-ie9 .show-for-lt-ie9 { display: block; }
+        .show-for-lt-ie9 { display: none; }

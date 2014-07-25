@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html lang="{{lang}}" data-language="{{language}}" dir="{{direction}}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{{lang}}" data-language="{{language}}" dir="{{direction}}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{{lang}}" data-language="{{language}}" dir="{{direction}}" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{lang}}" data-language="{{language}}" dir="{{direction}}" class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <title>Infographic Generator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="title"         content="Infographic Generator"/>
+    <meta name="keywords"      content="Infographic Generator"/>
+    <meta name="revisit-after" content="1 week"/>
+
+    <script>
+        window.config = {
+            lang: "{{lang}}",
+            language: "{{language}}",
+            dir: "{{direction}}",
+            host: "{{config.web.host}}",
+            port: "{{config.web.port.http}}"
+        };
+    </script>
+
+
+    {{> includes/css-includes }}
+    {{> includes/js-includes-head }}
+</head>
+<body lang="{{lang}}">
+    <div class="container">
+        <div class="template-header">
+            <h1 class="floating">Infographic Generator</h1>
+        </div>
+
+        <div class="template-content">
+            {{> content}}
+        </div>
+
+        <div class="template-footer">
+        </div>
+    </div>
+    <div id="javascript-includes">
+        {{> includes/js-includes }}
+        {{> includes/js-init }}
+    </div>
+</body>
+</html>

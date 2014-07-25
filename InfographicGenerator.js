@@ -68,8 +68,9 @@ app.set('view engine', 'mmm');
 
 
 // Page Routes and Includes
-app.use(          express.static(__dirname + '/app/public'));
-app.use('/bower', express.static(__dirname + '/bower'));
+app.use(           express.static(__dirname + '/app/public'));
+app.use('/bower',  express.static(__dirname + '/bower'));
+app.use('/vendor', express.static(__dirname + '/vendor'));
 app.use(connectDomain()); // allow express to output propper stack traces
 
 require('./app/routes/ajaxRoutes.js')(app);

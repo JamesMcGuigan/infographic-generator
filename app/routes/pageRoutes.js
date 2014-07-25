@@ -49,7 +49,7 @@ module.exports = function(app){
         var render = renderParams(request);
         //async.parallel([
         //], function() {
-        response.render("home", render);
+        response.render("ngView", render);
         //});
     });
 };

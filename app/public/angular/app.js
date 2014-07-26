@@ -6,6 +6,7 @@ angular.module('infographicApp', [
     'infographicApp.controllers',
     'infographicApp.directives',
     'infographicApp.filters',
+    'infographicApp.resources',
     'infographicApp.routes',
     'infographicApp.services'
 ]);

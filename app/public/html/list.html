@@ -1,1 +1,37 @@
-List
+<div>
+    <div class="col-left">
+        <button class="btn btn-success" ng-click="edit()">
+            Create New {{itemType}}
+        </button>
+        <div ng-show="pledge" ng-include="'html/edit.html'"></div>
+    </div>
+
+    <div class="col-right">
+        <h3>List of {{itemType}}s</h3>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="button" ng-click="sort('id')">ID</th>
+                <th class="button" ng-click="sort('date')">Date</th>
+                <th class="button" ng-click="sort('type')">Type</th>
+                <th class="button" ng-click="sort('name')">Title</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in list | orderBy:key:order">
+                <td>{{item.id}}</td>
+                <td>{{item.date | date: "yyyy-MM-dd"}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.title}}</td>
+                <td>
+                    <button class="btn" ng-click="edit(item)" onClick="scrollToEdit()">Edit</button> &nbsp;
+                    <button class="btn" ng-click="delete(item)">Delete</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

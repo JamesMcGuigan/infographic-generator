@@ -8,7 +8,12 @@ var config = {
     error_log:  '/var/log/supervisor/node/infographic-error.log',
     debug_log:  '/var/log/supervisor/node/infographic-debug.log',
 
-    db:      'mongodb://localhost/infographic',
+    db:      'mongodb://localhost/infographicdb',
+    crudPermissions: {
+        edit: ["infographics"],
+        view: ["infographics"]
+    },
+
     web: {
         host: "https://localhost:4001",
         port: {
@@ -16,6 +21,7 @@ var config = {
             https: 443
         }
     },
+
     sslcert: {
         key:  fs.readFileSync(path.join(__dirname, '../sslcert/san/infographic.san.key'), 'utf8'),
         cert: fs.readFileSync(path.join(__dirname, '../sslcert/san/infographic.san.crt'), 'utf8')
@@ -53,7 +59,7 @@ var config = {
 
 module.exports = {
     test: extend(true, {}, config, {
-        db: 'mongodb://localhost/infographic-test',
+        db: 'mongodb://localhost/infographicdb-test',
         web: {
             host: "http://localhost:4400",
             port: {
@@ -72,7 +78,7 @@ module.exports = {
         }
     }),
     staging: extend(true, {}, config, {
-        db: 'mongodb://infographic.staging.infographic.jamesmcguigan.com/infographic',
+        db: 'mongodb://infographic.staging.infographic.jamesmcguigan.com/infographicdb',
         web: {
             host: "http://staging.infographic.jamesmcguigan.com",
             port: {
@@ -82,7 +88,7 @@ module.exports = {
         }
     }),
     production:  extend(true, {}, config, {
-        db: 'mongodb://infographic.jamesmcguigan.com/infographic',
+        db: 'mongodb://infographic.jamesmcguigan.com/infographicdb',
         web: {
             host: "http://infographic.jamesmcguigan.com",
             port: {

@@ -19,6 +19,7 @@
     "angular":             "*",
     "angular-i18n":        "*",
     "angular-route":       "*",
+    "angular-resource":    "*",
     "bootstrap-css":       "*",
     "css3pie":             "*",
     "d3":                  "*",

@@ -41,7 +41,9 @@ $script([
         $script([
             '/bower/ngstorage/ngStorage.js',
             '/bower/angular-i18n/angular-locale_en-gb.js',
+            '/bower/angular-resource/angular-resource.js',
             '/bower/angular-route/angular-route.js',
+
             //'/bower/jquery-ui/ui/jquery.ui.accordion.js',
             //'/bower/jquery-easing/jquery.easing.js',
             //'/bower/jquery-ui/ui/jquery-ui.js',
@@ -52,6 +54,7 @@ $script([
                 $script([
                     '/angular/controller/controller.list.js',
                     '/angular/filters.js',
+                    '/angular/resources.js',
                     '/angular/routes.js'
                 ], function(){
                     $script([

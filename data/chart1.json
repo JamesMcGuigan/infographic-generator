@@ -18,8 +18,8 @@
         }
     },
 
-
-    "type": "svg",
+    "uuid":  "exampleInfographic",
+    "type":  "svg",
     "label": "Root Node",
     "attr": {
         "height":        353,

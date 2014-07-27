@@ -68,15 +68,16 @@ app.set('view engine', 'mmm');
 
 
 // Page Routes and Includes
-app.use(           express.static(__dirname + '/app/public'));
-app.use('/bower',  express.static(__dirname + '/bower'));
-app.use('/data',   express.static(__dirname + '/data'));
-app.use('/vendor', express.static(__dirname + '/vendor'));
+app.use(                express.static(__dirname + '/app/public'));
+app.use('/bower',       express.static(__dirname + '/bower'));
+app.use('/data',        express.static(__dirname + '/data'));
+app.use('/vendor',      express.static(__dirname + '/vendor'));
+app.use('/svgRendered', express.static(__dirname + '/svgRendered'));
 app.use(connectDomain()); // allow express to output propper stack traces
 
-require('./app/routes/ajaxRoutes.js')(app);
 require('./app/routes/pageRoutes.js')(app);
 require('./app/routes/CrudAPIRoutes.js')(app);
+require('./app/routes/GraphicsMagickRoutes.js')(app);
 //require('./app/routes/errorRoutes.js')(app);
 
 

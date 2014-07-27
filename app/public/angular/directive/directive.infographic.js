@@ -2,7 +2,7 @@ angular.module('infographicApp.directives')
     .run(['$http',function($http) {
         //$http({ method: 'GET', url: '/elements/infographic.html', cache: true });
     }])
-    .directive('infographic', ['keyCodes', '$timeout', function(keyCodes, $timeout) {
+    .directive('infographic', ['keyCodes', '$timeout', '$http', function(keyCodes, $timeout, $http) {
         return {
             replace:  true,
             template: "<svg class='infographic'></svg>",
@@ -139,10 +139,32 @@ angular.module('infographicApp.directives')
                     }
                 };
 
+                var renderPng = function(node, json) {
+                    $http({
+                        url:     "/GraphicsMagick/svg/",
+                        method:  "POST",
+                        data:    {
+                            uuid:   json["uuid"],
+                            svg:    $(node)[0].outerHTML,
+                            format: "jpg"
+                        }
+                        //headers: { "Content-Type": "text/plain" }
+                    })
+                    .success(function(response) {
+                        $("#preview").html("<img src='"+response.url+"'/>");
+                    })
+                    .error(function(response) {
+
+                    })
+                };
+
                 scope.$watch("infographic", function() {
                     $timeout(function() {
                         var rootJSON = $.extend({},scope["infographic"]);
-                        render(d3.select(element[0]), rootJSON);
+                        if( rootJSON && rootJSON["uuid"] ) {
+                            render(d3.select(element[0]), rootJSON);
+                            renderPng(element, rootJSON)
+                        }
                     })
                 });
 

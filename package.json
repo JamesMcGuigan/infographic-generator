@@ -13,7 +13,7 @@
     }
   ],
   "scripts": {
-    "install":            "bower install --allow-root;",
+    "install":            "bower install --allow-root; npm run browserify",
 
     "start":              "compass compile & compass watch & npm run nodemon",
     "test":               "mocha   test/InfographicGeneratorTest.js;",
@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "async": "*",
-    "crypto-browserify": "*",
     "body-parser": "*",
     "compression": "*",
     "connect": "*",
@@ -47,6 +46,7 @@
     "connect-flash": "*",
     "connect-mongo": "*",
     "cookie-parser": "*",
+    "crypto-browserify": "*",
     "datejs": "*",
     "express": "*",
     "express-error-handler": "*",
@@ -57,14 +57,14 @@
     "mmm": "*",
     "mongojs": "*",
     "morgan": "*",
+    "gm": "*",
     "node-uuid": "*",
     "node.extend": "*",
     "process": "*",
     "q": "*",
     "serve-favicon": "*",
     "underscore": "*",
-    "unirest": "*",
-    "jslint": "~0.6.1"
+    "unirest": "*"
   },
   "devDependencies": {
     "karma": "*",
@@ -76,7 +76,8 @@
   "browserify": {
     "async":             "*",
     "crypto-browserify": "*",
-    "node.extend":       "*"
+    "node.extend":       "*",
+    "gm":                "*"
   },
   "global": {
     "jsonlint":   "*",

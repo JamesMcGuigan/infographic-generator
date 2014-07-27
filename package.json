@@ -13,23 +13,29 @@
     }
   ],
   "scripts": {
-    "nodemon": "nodemon InfographicGenerator.js",
-    "nodemon_quiet": "nodemon InfographicGenerator.js |  grep -v 'nodemon.*:.*\\(___jb_...___\\|.idea/\\|.git/\\)' | uniq",
-    "start": "compass compile & compass watch & npm run nodemon",
-    "test": "mocha   test/InfographicGeneratorTest.js;",
-    "install": "bower install --allow-root;",
-    "killall": "killall node ruby",
-    "mongo": "mongod",
-    "lint": "find ./*.json -exec jsonlint -q {}; ./jslint-all.sh ./app/",
-    "compass": "compass compile --force",
-    "compass_watch": "compass watch",
-    "autosprite": "./app/public/img/sprite/scripts/autosprite.sh           && compass compile --force",
+    "install":            "bower install --allow-root;",
+
+    "start":              "compass compile & compass watch & npm run nodemon",
+    "test":               "mocha   test/InfographicGeneratorTest.js;",
+    "nodemon":            "nodemon InfographicGenerator.js",
+    "nodemon_quiet":      "nodemon InfographicGenerator.js |  grep -v 'nodemon.*:.*\\(___jb_...___\\|.idea/\\|.git/\\)' | uniq",
+    "mongo":              "mongod",
+    "killall":            "killall node ruby",
+
+    "lint":               "npm run jsonlint; npm run jslint;",
+    "jsonlint":           "find -E ./ -name '*.json' -not -regex '.*/(bower|node_modules|vendor)/.*' -print -exec jsonlint -q {} \\;",
+    "jslint":             "./jslint-all.sh ./app/",
+
+    "compile":            "npm run browserify && npm run autosprite",
+    "compass":            "compass compile --force",
+    "compass_watch":      "compass watch",
+    "autosprite":         "./app/public/img/sprite/scripts/autosprite.sh           && compass compile --force",
     "autosprite_refresh": "./app/public/img/sprite/scripts/autosprite.sh --refresh && compass compile",
-    "compile": "npm run browserify && npm run autosprite",
-    "browserify": "node compile_browserify.js",
-    "production": "npm run browserify && npm run production_js && npm run production_css",
-    "production_js": "./compile_production_js.sh",
-    "production_css": "compass compile -e production --force"
+    "browserify":         "node compile_browserify.js",
+
+    "production":         "npm run browserify && npm run production_js && npm run production_css",
+    "production_js":      "./compile_production_js.sh",
+    "production_css":     "compass compile -e production --force"
   },
   "dependencies": {
     "async": "*",

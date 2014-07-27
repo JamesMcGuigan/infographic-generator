@@ -25,17 +25,17 @@ $script([
     '/vendor/polyfills/storage.js',
     '/bower/datejs/build/date-en-GB.js',
     '/bower/jquery-legacy/jquery.js',
-    '/bower/fastclick/lib/fastclick.js'
+    '/bower/underscore/underscore.js',
+    '/bower/fastclick/lib/fastclick.js',
+    '/bower/d3/d3.js'
     //'/bower/gsap/src/uncompressed/TweenMax.js',
-
-    //'/bower/underscore/underscore.js'
 ], function() {
     $script([
         '/bower/bootstrap-css/js/bootstrap.js',
         '/bower/jquery-equal-height/af.equal-height.js',
         '/bower/jquery-or/js/jquery.or.js',
         '/bower/jquery-placeholder/jquery.placeholder.js',
-
+        '/bower/jquery-autosize/jquery.autosize.js',
         '/bower/angular/angular.js',
     ], function() {
         $script([
@@ -43,6 +43,7 @@ $script([
             '/bower/angular-i18n/angular-locale_en-gb.js',
             '/bower/angular-resource/angular-resource.js',
             '/bower/angular-route/angular-route.js',
+            '/bower/ng-prettyjson/src/ng-prettyjson.js',
 
             //'/bower/jquery-ui/ui/jquery.ui.accordion.js',
             //'/bower/jquery-easing/jquery.easing.js',
@@ -53,6 +54,9 @@ $script([
             ], function() {
                 $script([
                     '/angular/controller/controller.list.js',
+                    '/angular/controller/controller.edit.js',
+                    '/angular/directive/directive.infographic.js',
+                    '/angular/directive/directive.json-editor.js',
                     '/angular/filters.js',
                     '/angular/resources.js',
                     '/angular/routes.js'

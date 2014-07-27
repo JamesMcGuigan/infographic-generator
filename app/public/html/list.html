@@ -1,8 +1,6 @@
 <div>
     <div class="col-left">
-        <button class="btn btn-success" ng-click="edit()">
-            Create New {{itemType}}
-        </button>
+        <button class="btn btn-success" ng-click="edit()"> Create New {{itemType}} </button>
         <div ng-show="pledge" ng-include="'html/edit.html'"></div>
     </div>
 
@@ -27,9 +25,8 @@
                 <td>{{item.title}}</td>
                 <td>
                     <button class="btn" ng-click="edit(item)" onClick="scrollToEdit()">Edit</button> &nbsp;
-                    <button class="btn" ng-click="delete(item)">Delete</button>
+                    <!--<button class="btn" ng-click="delete(item)">Delete</button>-->
                 </td>
-
             </tr>
             </tbody>
         </table>

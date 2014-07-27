@@ -1,0 +1,53 @@
+/* line 7, ../scss-src/includes/ie.scss */
+.lt-ie8 img {
+  behavior: url("/vendor/iepngfix/iepngfix.htc");
+}
+
+/* line 20, ../scss-src/includes/ie.scss */
+.lt-ie9 img {
+  image-rendering: -moz-crisp-edges;
+  /* Firefox */
+  image-rendering: -o-crisp-edges;
+  /* Opera */
+  image-rendering: -webkit-optimize-contrast;
+  /* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: bicubic;
+  /* IE (non-standard property) */
+  zoom: 1;
+}
+/* line 29, ../scss-src/includes/ie.scss */
+.lt-ie9 button, .lt-ie9 .button, .lt-ie9 .round, .lt-ie9 .itunes-button, .lt-ie9 .googleplay-button {
+  behavior: url(/htc/css3pie/PIE.htc);
+}
+/* line 39, ../scss-src/includes/ie.scss */
+.lt-ie9 video,
+.lt-ie9 .show-for-small-only,
+.lt-ie9 .show-for-medium-only,
+.lt-ie9 .exit-off-canvas,
+.lt-ie9 .right-off-canvas-menu,
+.lt-ie9 .left-off-canvas-menu,
+.lt-ie9 .off-canvas-menu {
+  display: none;
+}
+/* line 43, ../scss-src/includes/ie.scss */
+.lt-ie9 video, .lt-ie9 .video {
+  text-align: center;
+  width: auto !important;
+  width: auto !important;
+}
+
+/* line 49, ../scss-src/includes/ie.scss */
+.lt-ie9 .show-for-lt-ie9 {
+  display: block;
+}
+
+/* line 50, ../scss-src/includes/ie.scss */
+.show-for-lt-ie9 {
+  display: none;
+}
+
+/* line 2, ../scss-src/elements.scss */
+textarea.code {
+  width: 100%;
+}

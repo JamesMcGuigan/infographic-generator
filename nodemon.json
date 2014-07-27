@@ -9,7 +9,8 @@
         "node_modules/",
         "public/",
         "test/",
-        "vendor/"
+        "vendor/",
+        "data/"
     ],
     "env": {
         "NODE_ENV": "development"

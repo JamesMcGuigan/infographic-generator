@@ -26,5 +26,10 @@ module.controller('ListController', ['$scope', '$route', '$sessionStorage', '$lo
         InfographicDB.get(function(response) {
             console.log(response)
         });
+
+
+        $scope.edit = function() {
+            $location.path('/edit');
+        };
     }
 ]);

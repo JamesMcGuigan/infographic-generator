@@ -24,6 +24,6 @@ angular.module('infographicApp.config', [])
         space:    32
     });
 
-angular.module('infographicApp.controllers', ['ngStorage']);
+angular.module('infographicApp.controllers', ['ngStorage','ngPrettyJson']);
 angular.module('infographicApp.directives', []);
 angular.module('infographicApp.services', []);

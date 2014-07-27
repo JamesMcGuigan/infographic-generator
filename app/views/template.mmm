@@ -30,6 +30,8 @@
     {{> includes/js-includes-head }}
 </head>
 <body lang="{{lang}}">
+    {{> partials/forkmegithub }}
+
     <div class="container">
         <div class="template-header">
             <h1 class="floating">Infographic Generator</h1>

@@ -27,4 +27,10 @@ angular.module('infographicApp.filters', [])
       return function(items) {
          return toArray(items).slice().reverse();
       };
-   });
+   })
+
+   .filter('jsonpp', function() {
+        return function(json) {
+            return JSON.stringify(json, null, 4);
+        };
+    });

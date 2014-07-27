@@ -1,0 +1,26 @@
+/* line 1, ../scss-src/ng-prettyjson.scss */
+pre {
+  outline: 1px solid #e9e9e9;
+  padding: 5px;
+  margin: 5px;
+}
+/* line 4, ../scss-src/ng-prettyjson.scss */
+pre .string {
+  color: green;
+}
+/* line 5, ../scss-src/ng-prettyjson.scss */
+pre .number {
+  color: darkorange;
+}
+/* line 6, ../scss-src/ng-prettyjson.scss */
+pre .boolean {
+  color: blue;
+}
+/* line 7, ../scss-src/ng-prettyjson.scss */
+pre .null {
+  color: magenta;
+}
+/* line 8, ../scss-src/ng-prettyjson.scss */
+pre .key {
+  color: red;
+}

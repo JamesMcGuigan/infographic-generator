@@ -56,6 +56,7 @@ $script([
                     '/angular/controller/controller.list.js',
                     '/angular/controller/controller.edit.js',
                     '/angular/directive/directive.infographic.js',
+                    '/angular/directive/directive.infographic.static.js',
                     '/angular/directive/directive.json-editor.js',
                     '/angular/filters.js',
                     '/angular/resources.js',

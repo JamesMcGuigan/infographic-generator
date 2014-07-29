@@ -2,8 +2,3 @@
 textarea.code {
   width: 100%;
 }
-
-/* line 5, ../scss-src/elements.scss */
-#preview {
-  padding-left: 41px;
-}

@@ -139,31 +139,31 @@ angular.module('infographicApp.directives')
                     }
                 };
 
-                var renderPng = function(node, json) {
-                    $http({
-                        url:     "/GraphicsMagick/svg/",
-                        method:  "POST",
-                        data:    {
-                            uuid:   json["uuid"],
-                            svg:    $(node)[0].outerHTML,
-                            format: "jpg"
-                        }
-                        //headers: { "Content-Type": "text/plain" }
-                    })
-                    .success(function(response) {
-                        $("#preview").html("<img src='"+response.url+"'/>");
-                    })
-                    .error(function(response) {
-
-                    })
-                };
+//                var renderPng = function(node, json) {
+//                    $http({
+//                        url:     "/GraphicsMagick/svg/",
+//                        method:  "POST",
+//                        data:    {
+//                            uuid:   json["uuid"],
+//                            svg:    $(node)[0].outerHTML,
+//                            format: "jpg"
+//                        }
+//                        //headers: { "Content-Type": "text/plain" }
+//                    })
+//                    .success(function(response) {
+//                        $("#preview").html("<img src='"+response.url+"'/>");
+//                    })
+//                    .error(function(response) {
+//
+//                    })
+//                };
 
                 scope.$watch("infographic", function() {
                     $timeout(function() {
                         var rootJSON = $.extend({},scope["infographic"]);
                         if( rootJSON && rootJSON["uuid"] ) {
                             render(d3.select(element[0]), rootJSON);
-                            renderPng(element, rootJSON)
+//                            renderPng(element, rootJSON)
                         }
                     })
                 });

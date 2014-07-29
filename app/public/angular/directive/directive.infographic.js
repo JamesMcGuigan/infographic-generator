@@ -12,8 +12,27 @@ angular.module('infographicApp.directives')
             link: function (scope, element, attrs) {
                 var debug = true;
 
-                // strMath('+',4,"42px",null,'/',2) == 23
-                var calc = function() {
+                scope.$watch("infographic", function() {
+                    $timeout(function() {
+                        var rootJSON = $.extend({},scope["infographic"]);
+                        if( rootJSON && rootJSON.uuid ) {
+                            render(d3.select(element[0]), rootJSON);
+                        }
+                    });
+                });
+
+
+                //***** Module Functions *****//
+
+                /**
+                 *  Alternative polish notation syntax with auto-casting for strings and nulls
+                 *  Accepts a list of arguments that are either operators '+','-','/','*'
+                 *          or castable number-like variables: 4, "42px", null
+                 *
+                 *  @example calc('+',4,"42px",null,'/',2,'-',7) == 16
+                 *  @returns {number}
+                 */
+                var calc = function(numbersAndOperators) {
                     var result   = 0;
                     var operator = '+';
                     for( var i = 0; i < arguments.length; i++ ) {
@@ -22,7 +41,7 @@ angular.module('infographicApp.directives')
                             operator = arguments[i];
                         } else {
                             if( typeof arg === "string" ) {
-                                arg = Number(arg.replace(/\D+/g,'')) || 0;
+                                arg = Number(arg.replace(/[^\d.]+/g,'')) || 0;
                             } else {
                                 arg = Number(arg) || 0;
                             }
@@ -37,28 +56,23 @@ angular.module('infographicApp.directives')
                     }
                     return result;
                 };
+                var calcTextHeight = function(json) {
+//                    if( json.type === "text") {
+//                        var lines = String(json.content).split(/\n/).length;
+//                        return calc(json.attr["line-height"]);
+//                        //return 0
+//                    } else {
+                        return 0
+//                    }
+                };
 
 
-                /**
-                 * Recursive function, renders new svg eleemnt inside node, according to json, then recurses through json.children
-                 * @param node      d3 container node, each recurision will add nodes to this node
-                 * @param json      json spec for a given child
-                 * @param defaults  [internal] defaults json, to be passed down the tree
-                 */
-                var render = function(node, json, defaults) {
-                    if( !json || _.keys(json).length === 0 ) { return; } // ignore empty configs
+                var parseJson = function(node, json, defaults, container) {
+                    json = $.extend(true, {}, json); // clone
+                    json.attr  = json.attr || {};
 
-                    var decendNode = node;
-
-                    node["attr"]       = node["attr"]       || {};
-                    defaults           = defaults           || {};
-
-                    // defaults for json extend down the tree,
-                    if( json["defaults"] ) {
-                        defaults = $.extend(true, {}, defaults, json["defaults"]);
-                    }
-                    if( defaults[json["type"]] ) {
-                        json = $.extend(true, {}, defaults[json["type"]], json);
+                    if( defaults[json.type] ) {
+                        json = $.extend(true, {}, defaults[json.type], json);
                     }
                     // inherit attrs from container node
                     for( var key in json.attr ) {
@@ -68,105 +82,114 @@ angular.module('infographicApp.directives')
                     }
 
                     // set x|y attrs, based on json[height|width] and node[height|width]
-                    if( json["align"] ) {
-                        if( json["align"].match(/Left/i) ) {
-                            json.attr["x"] = calc(0, '+', json["margin"]);
+                    json.attr["x"] = calc(container.x, json.attr["x"]);
+                    json.attr["y"] = calc(container.y, json.attr["y"]);
+                    if( json.align ) {
+                        if( json.align.match(/Left/i) ) {
+                            json.attr["x"] += calc(json.margin);
                         }
-                        else if( json["align"].match(/Center/i) ) {
-                            json.attr["x"] = calc(node.attr("width"), '-', json.attr["width"], '/', 2);
+                        else if( json.align.match(/Center/i) ) {
+                            json.attr["x"] += calc(container.width, '-', json.attr.width, '/', 2);
                         }
-                        else if( json["align"].match(/Right/i) ) {
-                            json.attr["x"] = calc( node.attr("width"), '-', json.attr["width"], '-', json["margin"] );
+                        else if( json.align.match(/Right/i) ) {
+                            json.attr["x"] += calc(container.width, '-', json.attr.width, json.margin );
                         }
 
-                        if( json["align"].match(/Top/i) ) {
-                            json.attr["y"] = calc(0, '+', json["margin"]);
-
-                            if( json["type"] === "text" ) {
-                                json.attr["y"] += calc(json.attr["line-height"]);
-                            }
+                        if( json.align.match(/Top/i) ) {
+                            json.attr["y"] += calc(calcTextHeight(json), json.margin);
                         }
-                        else if( json["align"].match(/Mid(dle)?/i) ) {
-                            json.attr["y"] = calc( node.attr("height"), '-', json.attr["height"], '/', 2);
-
-                            if( json["type"] === "text" ) {
-                                json.attr["y"] += calc(json.attr["line-height"], '/', 2);
-                            }
+                        else if( json.align.match(/Mid(dle)?/i) ) {
+                            json.attr["y"] += calc(calcTextHeight(json), container.height, '-', json.attr.height, '/', 2);
                         }
-                        else if( json["align"].match(/Bottom/i) ) {
-                            json.attr["y"] = calc(node.attr("height"), '-', json.attr["height"], '-', json["margin"]);
+                        else if( json.align.match(/Bottom/i) ) {
+                            json.attr["y"] = calc(container.height, '-', json.attr.height, '-', json.margin);
                         }
                     }
+                    return json;
+                };
+
+                /**
+                 * Recursive function, renders new svg eleemnt inside node, according to json, then recurses through json.children
+                 * @param node      d3 container node, each recurision will add nodes to this node
+                 * @param json      json spec for a given child
+                 * @param defaults  [internal] defaults json, to be passed down the tree
+                 */
+                var render = function(node, json, defaults, container) {
+                    if( !json || _.keys(json).length === 0 ) { return; } // ignore empty configs
+
+                    defaults   = $.extend(true, {}, defaults, json && json.defaults); // defaults for json extend down the tree,
+                    container = container || $.extend({
+                        x:      json.attr["x"],
+                        y:      json.attr["y"],
+                        height: json.attr["height"],
+                        width:  json.attr["width"]
+                    }, container);
+
+                    json = parseJson(node, json, defaults, container);
+
 
 
                     if( debug ) { console.log('directive.infographic:38', 'json', $.extend({}, json, {children:null})); }
 
-                    switch( json["type"] ) {
-
+                    var decendNode = node;
+                    switch( json.type ) {
                         case "svg":
+                            //decendNode = node;
                             node.attr(json.attr);
-                            node.attr("viewBox", [ 0, 0, json.attr["width"], json.attr["height"] ].join(" "));
                             node.append("rect").attr(json.attr);
-                        break;
+                            break;
 
                         case "image":
-                        case "text":
                         case "rect":
-                            decendNode = node.append(json["type"]).attr(json.attr).style(json["style"]).text(json["content"]);
-                        break;
+                            decendNode = node.append(json.type).attr(json.attr);
+                            break;
 
+                        case "text":
+                            // We need to render each line of text separately, due to ImageMagick not rendering newlines
+                            // The i+1 is because svg considers the origin of text to be the BottomLeft corner
+                            _.each(json.content.split("\n"), function(line,i) {
+                                var attr = $.extend({}, json.attr, {
+                                    "y": calc(json.attr["y"]) + calc(json.attr["line-height"], '*' , i+1)
+                                });
+                                decendNode = node.append(json.type).attr(attr).text(line)
+                            });
+                            break;
 
                         default:
-                            console.log("directive.infographic - invalid type: ", json["type"], json);
-                        break;
+                            console.log("directive.infographic - invalid type: ", json.type, json);
+                            break;
 
                     }
 
-                    if( json["children"] ) {
-                        if(!( json["children"] instanceof Array )) {
-                            json["children"] = [ json["children"] ];
+                    if( json.children ) {
+                        if(!( json.children instanceof Array )) {
+                            json.children = [ json.children ];
                         }
 
-                        var svgNode = node.append("svg").attr({
-                            x:      decendNode.attr("x"),
-                            y:      decendNode.attr("y"),
-                            height: decendNode.attr("height"),
-                            width:  decendNode.attr("width")
-                        });
-                        for( var i=0, n=json["children"].length; i<n; i++ ) {
-                            render(svgNode, json["children"][i], defaults);
+                        var childrenNode = node;
+                        switch( json.type ) {
+                            case "svg": break;
+                            default:
+                                container = {
+                                    x:      calc(container.x, decendNode.attr("x")),
+                                    y:      calc(container.y, decendNode.attr("y")),
+                                    height: calc(decendNode.attr("height")),
+                                    width:  calc(decendNode.attr("width"))
+                                };
+                                childrenNode = node.append("g").attr({
+                                    x:      calc(decendNode.attr("x")),
+                                    y:      calc(decendNode.attr("y")),
+                                    height: calc(decendNode.attr("height")),
+                                    width:  calc(decendNode.attr("width"))
+                                });
+                                break;
+                        }
+
+                        for( var i=0, n=json.children.length; i<n; i++ ) {
+                            render(childrenNode, json.children[i], defaults, container);
                         }
                     }
                 };
-
-//                var renderPng = function(node, json) {
-//                    $http({
-//                        url:     "/GraphicsMagick/svg/",
-//                        method:  "POST",
-//                        data:    {
-//                            uuid:   json["uuid"],
-//                            svg:    $(node)[0].outerHTML,
-//                            format: "jpg"
-//                        }
-//                        //headers: { "Content-Type": "text/plain" }
-//                    })
-//                    .success(function(response) {
-//                        $("#preview").html("<img src='"+response.url+"'/>");
-//                    })
-//                    .error(function(response) {
-//
-//                    })
-//                };
-
-                scope.$watch("infographic", function() {
-                    $timeout(function() {
-                        var rootJSON = $.extend({},scope["infographic"]);
-                        if( rootJSON && rootJSON["uuid"] ) {
-                            render(d3.select(element[0]), rootJSON);
-//                            renderPng(element, rootJSON)
-                        }
-                    })
-                });
 
 
             }

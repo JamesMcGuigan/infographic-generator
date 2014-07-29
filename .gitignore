@@ -11,6 +11,7 @@ bower
 .idea
 .vagrant
 .grunt
+*.broken*
 coverage
 lib-cov
 build/Release

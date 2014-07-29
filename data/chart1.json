@@ -78,7 +78,8 @@
                     "align": "TopLeft"
                 },
                 {
-                    "type":    "chart"
+                    "type":     "chart",
+                    "d3.chart": "BarChart"
                 }
             ]
         }

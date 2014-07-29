@@ -12,16 +12,16 @@ City=London
 Organization="Crystalline Technologies"
 Section=""
 FQDN=infographic.jamesmcguigan.com
-Email=james.mcguigan.personal@gmail.com
+Email=james.mcguigan@gmail.com
 
 
-# Generate Private Key
-openssl genrsa -des3 -out infographic.san.key.password 2048
+## Generate Private Key
+openssl genrsa -des3 -passout pass:foobar -out infographic.san.key.password 2048
 
-#  Convert the private key to an unencrypted format
-openssl rsa -in infographic.san.key.password -out infographic.san.key
+##  Convert the private key to an unencrypted format
+openssl rsa -passin pass:foobar -in infographic.san.key.password -out infographic.san.key
 
-#  Create the certificate signing request
+##  Create the certificate signing request
 openssl req -new -key infographic.san.key -out infographic.san.csr <<EOF
 $Country
 $State
@@ -34,7 +34,7 @@ $Email
 .
 EOF
 
-# Sign the certificate with extensions
+## Sign the certificate with extensions
 openssl x509 -req -extensions v3_req -days 365 -in infographic.san.csr -signkey infographic.san.key -out infographic.san.crt -extfile infographic.san.conf
 #    -CA ../rootCA/infographic.rootCA.crt -CAkey ../rootCA/infographic.rootCA.key -CAcreateserial
 
@@ -43,3 +43,5 @@ openssl x509 -req -extensions v3_req -days 365 -in infographic.san.csr -signkey 
 #openssl req    -new -nodes -out infographic.san.csr -config infographic.san.conf
 #openssl x509   -req -CA ../rootCA/infographic.rootCA.pem -CAkey ../rootCA/infographic.rootCA.key -CAcreateserial -in infographic.san.csr -out infographic.san.crt -days 3650
 ##end
+
+exit 0

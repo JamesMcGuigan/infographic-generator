@@ -24,6 +24,8 @@
     "bootstrap-css":       "*",
     "css3pie":             "*",
     "d3":                  "*",
+    "d3.chart":            "*",
+    "d3.chart.base":       "*",
     "datejs":              "*",
     "fastclick":           "*",
     "html5shiv":           "*",

@@ -27,10 +27,12 @@ $script([
     '/bower/jquery-legacy/jquery.js',
     '/bower/underscore/underscore.js',
     '/bower/fastclick/lib/fastclick.js',
-    '/bower/d3/d3.js'
+    '/bower/d3/d3.js',
     //'/bower/gsap/src/uncompressed/TweenMax.js',
 ], function() {
     $script([
+        '/bower/d3.chart/d3.chart.js',
+
         '/bower/bootstrap-css/js/bootstrap.js',
         '/bower/jquery-equal-height/af.equal-height.js',
         '/bower/jquery-or/js/jquery.or.js',

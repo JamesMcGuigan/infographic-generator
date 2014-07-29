@@ -1,7 +1,16 @@
 process.argv.forEach(function (value, index, array) {
-    if( value.match(/^NODE_ENV=/) ) { process.env.NODE_ENV = value.replace(/^NODE_ENV=/, ''); }
+    if( value.match(/^NODE_ENV=/)   ) { process.env.NODE_ENV   = value.replace(/^NODE_ENV=/,  ''); }
+    if( value.match(/^PORT_HTTP=/)  ) { process.env.PORT_HTTP  = value.replace(/^PORT_HTTP=/, ''); }
+    if( value.match(/^PORT_HTTPS=/) ) { process.env.PORT_HTTPS = value.replace(/^PORT_HTTPS=/, ''); }
 });
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
+// Regenerate SSL certs if key is missing (*.key is in .gitignore)
+if( !require('fs').existsSync("app/sslcert/san/infographic.san.key") ) {
+    try {
+        require('exec-sync')("app/sslcert/san/generate-san.sh");
+    } catch(e) {}
+}
 
 var config         = require('./app/config/config.js')[process.env.NODE_ENV];
 var _              = require("underscore");
@@ -14,6 +23,7 @@ var connectDomain  = require("connect-domain");
 var cookieParser   = require('cookie-parser');
 var favicon        = require('serve-favicon');
 var flash          = require("connect-flash");
+var path           = require('path');
 var fs             = require('fs');
 var http           = require('http');
 var https          = require('https');

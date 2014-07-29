@@ -4,9 +4,9 @@ var extend = require("node.extend");
 
 var config = {
     name: 'Infographic Generator',
-    access_log: '/var/log/supervisor/node/infographic-access.log',
-    error_log:  '/var/log/supervisor/node/infographic-error.log',
-    debug_log:  '/var/log/supervisor/node/infographic-debug.log',
+    access_log: '/var/log/node/infographic-access.log',
+    error_log:  '/var/log/node/infographic-error.log',
+    debug_log:  '/var/log/node/infographic-debug.log',
 
     db:      'mongodb://localhost/infographicdb',
     crudPermissions: {
@@ -82,8 +82,8 @@ module.exports = {
         web: {
             host: "http://staging.infographic.jamesmcguigan.com",
             port: {
-                http:  80,
-                https: 443
+                http:  4000,
+                https: 4001
             }
         }
     }),
@@ -92,9 +92,23 @@ module.exports = {
         web: {
             host: "http://infographic.jamesmcguigan.com",
             port: {
-                http:  80,
-                https: 443
+                http:  4000,
+                https: 4001
             }
         }
     })
 };
+
+// Allow Port configuration from the command line
+if( process.env.PORT_HTTP || process.env.PORT_HTTPS ) {
+    for( var key in module.exports ) {
+        if( process.env.PORT_HTTP ) {
+            module.exports[key].web.host = module.exports[key].web.host.replace(':'+module.exports[key].web.port.http, ':'+process.env.PORT_HTTP);
+            module.exports[key].web.port.http = process.env.PORT_HTTP;
+        }
+        if( process.env.PORT_HTTPS ) {
+            module.exports[key].web.host = module.exports[key].web.host.replace(':'+module.exports[key].web.port.https, ':'+process.env.PORT_HTTPS);
+            module.exports[key].web.port.https = process.env.PORT_HTTPS;
+        }
+    }
+}

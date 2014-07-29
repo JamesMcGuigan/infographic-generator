@@ -51,6 +51,7 @@
     "express": "*",
     "express-error-handler": "*",
     "express-session": "*",
+    "exec-sync": "*",
     "hogan.js": "*",
     "http-auth": "*",
     "method-override": "*",

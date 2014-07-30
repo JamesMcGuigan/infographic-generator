@@ -1,7 +1,6 @@
-<div>
+<div ng-cloak>
     <div class="col-left">
-        <button class="btn btn-success" ng-click="edit()"> Create New {{itemType}} </button>
-        <div ng-show="pledge" ng-include="'html/edit.html'"></div>
+        <button class="btn btn-primary" ng-click="create()"> Create New {{itemType}} </button>
     </div>
 
     <div class="col-right">
@@ -10,21 +9,22 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th class="button" ng-click="sort('type')">Type</th>
                 <th class="button" ng-click="sort('id')">ID</th>
                 <th class="button" ng-click="sort('date')">Date</th>
-                <th class="button" ng-click="sort('type')">Type</th>
-                <th class="button" ng-click="sort('name')">Title</th>
+                <th class="button" ng-click="sort('title')">Title</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in list | orderBy:key:order">
+                <td>{{item.type}}</td>
                 <td>{{item.id}}</td>
                 <td>{{item.date | date: "yyyy-MM-dd"}}</td>
-                <td>{{item.type}}</td>
                 <td>{{item.title}}</td>
                 <td>
-                    <button class="btn" ng-click="edit(item)" onClick="scrollToEdit()">Edit</button> &nbsp;
+                    <a ng-href="#/edit/{{item.type}}:{{item.id}}"><button class="btn">Edit</button></a>
+
                     <!--<button class="btn" ng-click="delete(item)">Delete</button>-->
                 </td>
             </tr>

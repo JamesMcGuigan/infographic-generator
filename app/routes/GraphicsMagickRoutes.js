@@ -10,16 +10,16 @@ module.exports = function(app){
         var svg         = request.body.svg;
         var format      = request.body.format || "jpg";
         var svgfile     = "svgRendered/" + uuid + ".svg";
-        var outfile     = "svgRendered/" + uuid + "." + format;
+        var imgfile     = "svgRendered/" + uuid + "." + format;
 
         fs.writeFile(svgfile, svg, function(err) {
-            exec("convert " + svgfile + " " + outfile, function(error, stdout, stderr) {
+            exec("convert " + svgfile + " " + imgfile, function(error, stdout, stderr) {
                 response.writeHead(200, {"Content-Type": "application/json"});
                 response.write(JSON.stringify({
                     success: true,
-                    svgfile: svgfile,
-                    outfile: outfile,
-                    url:     config.web.host + "/" + outfile + "?" + Date.now()
+                    svgfile: config.web.host + "/" + svgfile,
+                    imgfile: config.web.host + "/" + imgfile,
+                    url:     config.web.host + "/" + imgfile + "?" + Date.now()
                 }));
                 response.end("\n");
             });

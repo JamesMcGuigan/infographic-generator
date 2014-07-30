@@ -15,21 +15,32 @@ module.controller("TableSortController", ['$scope', function($scope, options) {
     };
 }]);
 
-module.controller('ListController', ['$scope', '$route', '$sessionStorage', '$location', '$controller', "InfographicDB",
-    function($scope, $route, $sessionStorage, $location, $controller, InfographicDB) {
+module.controller('ListController',
+    ['$scope', '$route', '$sessionStorage', '$location', '$controller', "InfographicDB", "InfographicFile",
+    function($scope, $route, $sessionStorage, $location, $controller, InfographicDB, InfographicFile) {
         $controller('TableSortController', { $scope: $scope });
         var ListController = this;
 
         $scope.itemType = "Infographic";
         $scope.list = [];
 
-        InfographicDB.get(function(response) {
-            console.log(response)
+        InfographicFile.get(function(response) {
+            $scope.list = $scope.list.concat(response.data);
+            console.log('InfographicFile', 'response', response.data);
+            console.log('controller.list:30', '$scope.list', $scope.list);
         });
 
+        InfographicDB.get(function(response) {
+            $scope.list = $scope.list.concat(response.data);
+            console.log('InfographicDB', 'response', response.data);
+            console.log('controller.list:36', '$scope.list', $scope.list);
+        });
 
-        $scope.edit = function() {
-            $location.path('/edit');
+        $scope.create = function() {
+            var filename = window.prompt("Please enter a new filename","chartX.json");
+            $location.path('/edit/file:'+filename);
         };
+
+
     }
 ]);

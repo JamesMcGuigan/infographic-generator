@@ -5,7 +5,8 @@ angular.module('infographicApp.directives')
     .directive('infographic', ['keyCodes', '$timeout', '$http', function(keyCodes, $timeout, $http) {
         return {
             replace:  true,
-            template: "<svg class='infographic'></svg>",
+            template: "<svg class='infographic' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>",
+
             scope: {
                 infographic: "="
             },
@@ -15,7 +16,7 @@ angular.module('infographicApp.directives')
                 scope.$watch("infographic", function() {
                     $timeout(function() {
                         var rootJSON = $.extend({},scope["infographic"]);
-                        if( rootJSON && rootJSON.uuid ) {
+                        if( rootJSON ) {
                             render(d3.select(element[0]), rootJSON);
                         }
                     });

@@ -1,9 +1,11 @@
+// TODO: Untested, Unfinished
+
 var _         = require("underscore");
 var assert    = require("assert");
 var config    = require('../config/config.js')[process.env.NODE_ENV];
 var mongojs   = require("mongojs");
 
-var CrudAPI = module.exports = {
+var CrudMongoAPI = module.exports = {
     render: function(response, error, data) {
         if( error ) {
             response.writeHead(400, {"Content-Type": "application/json"});
@@ -30,7 +32,7 @@ var CrudAPI = module.exports = {
         }
 
         if( error ) {
-            CrudAPI.render(response, error, null);
+            CrudMongoAPI.render(response, error, null);
             return false;
         } else {
             return true;
@@ -38,16 +40,16 @@ var CrudAPI = module.exports = {
     },
 
     get: function(request, response) {
-        if( CrudAPI.authorize(response, "view", request.params.table) ) {
+        if( CrudMongoAPI.authorize(response, "view", request.params.table) ) {
             var db = mongojs(config.db, [request.params.table]);
 
             if( request.params.id ) {
                 db[request.params.table].find( {id: request.params.id}, function(error, docs) {
-                    CrudAPI.render(response, error, docs);
+                    CrudMongoAPI.render(response, error, docs);
                 });
             } else {
                 db[request.params.table].find( function(error, docs) {
-                    CrudAPI.render(response, error, docs);
+                    CrudMongoAPI.render(response, error, docs);
                 });
             }
         }

@@ -1,9 +1,15 @@
-var CrudAPI = require("../controllers/CrudAPI.js");
+var CrudMongoAPI = require("../controllers/CrudMongoAPI.js");
+var CrudFileAPI  = require("../controllers/CrudFileAPI.js");
 
 module.exports = function(app, db) {
-    app.get(   "/crud/:table",     CrudAPI.get);
-    app.get(   "/crud/:table/:id", CrudAPI.get);
-//    app.post(  "/api/:table",     CrudAPI.add);
-//    app.put(   "/api/:table/:id", CrudAPI.update);
-//    app.delete("/api/:table/:id", CrudAPI.delete);
+    app.get(   "/api/mongo/:table",     CrudMongoAPI.get);
+    app.get(   "/api/mongo/:table/:id", CrudMongoAPI.get);
+
+    app.get(   "/api/filesystem/",          CrudFileAPI.get);
+    app.get(   "/api/filesystem/:filename", CrudFileAPI.get);
+    app.post(  "/api/filesystem/:filename", CrudFileAPI.post);
+
+//    app.post(  "/api/:table",     CrudMongoAPI.add);
+//    app.put(   "/api/:table/:id", CrudMongoAPI.update);
+//    app.delete("/api/:table/:id", CrudMongoAPI.delete);
 };

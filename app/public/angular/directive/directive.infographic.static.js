@@ -26,10 +26,15 @@ angular.module('infographicApp.directives')
                         }
                     })
                     .success(function(response) {
-                        $(element).html("<img src='"+response.url+"'/>");
+                        $(element).html(
+                            "<img src='"+response.url+"'/><br/><br/>" +
+                            "<a style='display:block' target='_blank' href='" + response.imgfile + "'>" + response.imgfile + "</a>" +
+                            "<a style='display:block' target='_blank' href='" + response.svgfile + "'>" + response.svgfile + "</a>"
+                        );
+                        $(element).css({opacity: 1});
                     })
                     .error(function(response) {
-                        $(element).empty();
+                        $(element).css({opacity: 0.5});
                     });
                 };
 
@@ -57,7 +62,8 @@ angular.module('infographicApp.directives')
 
                 scope.$watch("json", function() {
                     if( hasJsonChanged(scope.json) ) {
-                        $(element).empty();
+                        //$(element).empty();
+                        $(element).css({opacity: 0.5});
                     }
                 });
             }

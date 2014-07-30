@@ -1,30 +1,29 @@
 {
+    "title": "Example Infographic 1",
     "defaults": {
         "image": {
             "attr": {
                 "height": "inherit",
-                "width":  "inherit",
+                "width": "inherit",
                 "preserveAspectRatio": "xMinYMin slice"
             }
         },
         "text": {
-            "attr":  {
-                "font-size":   "24px",
+            "attr": {
+                "font-size": "24px",
                 "line-height": "24px",
                 "font-family": "Helvetica Neue",
-                "fill":        "white"
+                "fill": "white"
             },
             "align": "TopLeft"
         }
     },
-
-    "uuid":  "exampleInfographic",
-    "type":  "svg",
+    "type": "svg",
     "label": "Root Node",
     "attr": {
-        "height":        353,
-        "width":         470,
-        "fill":         "white"
+        "height": 353,
+        "width": 470,
+        "fill": "white"
     },
     "children": [
         {
@@ -38,51 +37,50 @@
             "type": "image",
             "label": "Watermark Image",
             "attr": {
-                "height":      35,
-                "width":       195,
-                "xlink:href":  "http://matchstory.co.uk/wp-content/uploads/2013/08/ms_web_logo3.png",
+                "height": 35,
+                "width": 195,
+                "xlink:href": "http://matchstory.co.uk/wp-content/uploads/2013/08/ms_web_logo3.png",
                 "preserveAspectRatio": "xMaxYMax meet"
             },
             "margin": 10,
             "align": "BottomLeft"
         },
         {
-            "type":    "text",
+            "type": "text",
             "content": "THE MEN WHO'LL RUN THE SHOW",
             "attr": {
-                "font-size":   "24px",
+                "font-size": "24px",
                 "line-height": "24px"
             },
             "margin": 10,
             "align": "TopLeft"
         },
         {
-            "type":    "rect",
+            "type": "rect",
             "attr": {
-                "height":        250,
-                "width":         400,
-                "fill-opacity":  0.5,
-                "fill":          "black"
+                "height": 250,
+                "width": 400,
+                "fill-opacity": 0.5,
+                "fill": "black"
             },
             "align": "MiddleLeft",
-
             "children": [
                 {
-                    "type":    "text",
+                    "type": "text",
                     "content": "Players who have completed the most \npasses in the two squads",
                     "attr": {
-                        "font-size":   "16px",
+                        "font-size": "16px",
                         "line-height": "20px"
                     },
                     "margin": 10,
                     "align": "TopLeft"
                 },
                 {
-                    "type":     "chart",
+                    "type": "chart",
                     "d3.chart": "BarChart"
                 }
             ]
         }
-    ]
+    ],
+    "uuid": "file:chart1.json"
 }
-

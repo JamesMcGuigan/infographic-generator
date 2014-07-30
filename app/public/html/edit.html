@@ -1,10 +1,15 @@
+<a href="#/list"><button class="btn btn-primary"> Return to List</button></a>
+
 <h3>Infographic</h3>
 <pre id="infographic"><svg infographic="config"></svg></pre>
 
 <h3>ImageMagick Static Rendering
-    <button class="infographic-static-button">Generate Infographic JPEG</button>
+    <button class="btn btn-success">Generate Infographic JPEG</button>
 </h3>
 <pre id="preview"><div infographic-static json="config" svg-selector="'#infographic svg'" button-selector="'.infographic-static-button'"></div></pre>
 
 <h3>Infographic Configuration File</h3>
-<pre id="code"><textarea class="code" ng-model="config" json-editor></textarea></pre>
+<pre id="code"><!--
+ --><textarea class="code" ng-model="config" json-editor></textarea><!--
+ --><h3><button style="display: block; float: right" class="btn btn-success" ng-click="save(config)">Save Configuration</button></h3><!--
+--></pre>

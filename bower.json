@@ -27,6 +27,7 @@
     "d3.chart":            "*",
     "d3.chart.base":       "*",
     "datejs":              "*",
+    "nvd3":                "*",
     "highcharts-release":  "*",
     "highstock-release":   "*",
     "highmaps-release":    "*",

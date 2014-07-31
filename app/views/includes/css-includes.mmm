@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/bower/reset-css/reset.css"/>
 <link rel="stylesheet" href="/bower/bootstrap-css/css/bootstrap.css"/>
 <link rel="stylesheet" href="/bower/bootstrap-css/css/bootstrap-theme.css"/>
+<!--<link rel="stylesheet" href="/bower/nvd3/nv.d3.css"/>-->
 <link rel="stylesheet" href="/img/sprite/sprite.css" />
 <link rel="stylesheet" href="/scss/includes.css" />
 <!--<link rel="stylesheet" href="/scss/ng-prettyjson.css" />-->

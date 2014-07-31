@@ -2,7 +2,7 @@ angular.module('infographicApp.directives')
     .run(['$http',function($http) {
         //$http({ method: 'GET', url: '/elements/infographic.html', cache: true });
     }])
-    .directive('infographic', ['keyCodes', '$timeout', '$http', function(keyCodes, $timeout, $http) {
+    .directive('infographic', ['keyCodes', '$timeout', '$http', 'util', function(keyCodes, $timeout, $http, util) {
         return {
             replace:  true,
             template: "<svg class='infographic' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>",
@@ -12,6 +12,7 @@ angular.module('infographicApp.directives')
             },
             link: function (scope, element, attrs) {
                 var debug = true;
+                var calc  = util.calc;
 
                 scope.$watch("infographic", function() {
                     $timeout(function() {
@@ -21,51 +22,6 @@ angular.module('infographicApp.directives')
                         }
                     });
                 });
-
-
-                //***** Module Functions *****//
-
-                /**
-                 *  Alternative polish notation syntax with auto-casting for strings and nulls
-                 *  Accepts a list of arguments that are either operators '+','-','/','*'
-                 *          or castable number-like variables: 4, "42px", null
-                 *
-                 *  @example calc('+',4,"42px",null,'/',2,'-',7) == 16
-                 *  @returns {number}
-                 */
-                var calc = function(numbersAndOperators) {
-                    var result   = 0;
-                    var operator = '+';
-                    for( var i = 0; i < arguments.length; i++ ) {
-                        var arg = arguments[i];
-                        if( ['+','-','*','/'].indexOf(arg) != -1 ) {
-                            operator = arguments[i];
-                        } else {
-                            if( typeof arg === "string" ) {
-                                arg = Number(arg.replace(/[^\d.]+/g,'')) || 0;
-                            } else {
-                                arg = Number(arg) || 0;
-                            }
-
-                            switch( operator ) {
-                                case '+': result += arg; break;
-                                case '-': result -= arg; break;
-                                case '*': result *= arg; break;
-                                case '/': result /= arg; break;
-                            }
-                        }
-                    }
-                    return result;
-                };
-                var calcTextHeight = function(json) {
-//                    if( json.type === "text") {
-//                        var lines = String(json.content).split(/\n/).length;
-//                        return calc(json.attr["line-height"]);
-//                        //return 0
-//                    } else {
-                        return 0
-//                    }
-                };
 
 
                 var parseJson = function(node, json, defaults, container) {
@@ -97,10 +53,10 @@ angular.module('infographicApp.directives')
                         }
 
                         if( json.align.match(/Top/i) ) {
-                            json.attr["y"] += calc(calcTextHeight(json), json.margin);
+                            json.attr["y"] += calc(json.margin);
                         }
                         else if( json.align.match(/Mid(dle)?/i) ) {
-                            json.attr["y"] += calc(calcTextHeight(json), container.height, '-', json.attr.height, '/', 2);
+                            json.attr["y"] += calc(container.height, '-', json.attr.height, '/', 2);
                         }
                         else if( json.align.match(/Bottom/i) ) {
                             json.attr["y"] = calc(container.height, '-', json.attr.height, '-', json.margin);
@@ -155,6 +111,66 @@ angular.module('infographicApp.directives')
                                 decendNode = node.append(json.type).attr(attr).text(line)
                             });
                             break;
+
+                        case "chart":
+                            var data    = util.nestedHashToArray(json.data,"value");
+                            var svgNode = decendNode = node.append("g").attr(json.attr).attr({x:0,y:0});
+                            var svg = {
+                                x:      calc(json.attr.x),
+                                y:      calc(json.attr.y),
+                                height: calc(json.attr.height),
+                                width:  calc(json.attr.width)
+                            };
+                            switch( json.chart ) {
+                                case "BarChart": {
+                                    var textWidth    = 100;
+                                    var valueWidth   = 40;
+                                    var valueOffsetX = +10;
+                                    var textOffsetY  = -7;
+                                    var rowHeight    = svg.height / data.length;
+                                    var barHeight    = rowHeight * 0.8;
+                                    var maxValue     = Math.max.apply(Math, _.pluck(data, "value"));
+                                    var maxBarWidth  = svg.width - textWidth*1.1 - valueWidth;
+                                    var barScale     = d3.scale.linear().domain([0,maxValue]).range([0,maxBarWidth]);
+
+                                    console.log('directive.infographic:124', 'decendNode', decendNode);
+                                    svgNode.append("g")
+                                        .selectAll("text")
+                                        .data(data)
+                                        .enter()
+                                        .append("text")
+                                        .attr("x", textWidth + svg.x)
+                                        .attr("y", function(d,i) { return (i+1) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("height", barHeight)
+                                        .attr("text-anchor", "end")
+                                        .attr("alignment-baseline", "central")
+                                        .text(function(d) { return d.label; })
+
+                                    svgNode.append("g")
+                                        .selectAll("rect")
+                                        .data(data)
+                                        .enter()
+                                        .append("rect")
+                                        .attr("x", textWidth * 1.1 + svg.x )
+                                        .attr("y", function(d,i) { return i * rowHeight + svg.y })
+                                        .attr("height", barHeight)
+                                        .attr("width", function(d) { return barScale(d.value); })
+                                        .attr("fill",  function(d) { return d.color; })
+
+                                    svgNode.append("g")
+                                        .selectAll("text")
+                                        .data(data)
+                                        .enter()
+                                        .append("text")
+                                        .text(function(d) { return d.value; })
+                                        .attr("x", function(d,i) { return textWidth * 1.1 + barScale(d.value) + valueOffsetX + svg.x; })
+                                        .attr("y", function(d,i) { return (i+1) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("height", barHeight)
+                                        .attr("fill",  function(d) { return d.color; })
+                                }
+                            }
+                        break;
+
 
                         default:
                             console.log("directive.infographic - invalid type: ", json.type, json);

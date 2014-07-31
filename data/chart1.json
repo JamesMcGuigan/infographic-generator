@@ -76,8 +76,49 @@
                     "align": "TopLeft"
                 },
                 {
-                    "type": "chart",
-                    "d3.chart": "BarChart"
+                    "type":  "chart",
+                    "chart": "BarChart",
+                    "attr": {
+                        "x":      0,
+                        "y":      65,
+                        "height": 170,
+                        "width":  400,
+                        "font-size":   "12px",
+                        "line-height": "12px",
+                        "font-family": "Helvetica Neue",
+                        "fill":        "white"
+                    },
+                    "margin": 10,
+                    "data": {
+                        "values": {
+                            "Zabaleta": 217,
+                            "Mascherano": 442,
+                            "Lahm": 421,
+                            "Kroos": 418,
+                            "Schweinsteiger": 294,
+                            "Mertestacker": 292,
+                            "Gago": 277,
+                            "Boateng": 270,
+                            "Garay": 277,
+                            "Boateng": 270,
+                            "Garay": 267,
+                            "Ozil": 248
+                        },
+                        "colors": {
+                            "Mascherano": "lightBlue",
+                            "Lahm": "white",
+                            "Kroos": "white",
+                            "Schweinsteiger": "white",
+                            "Mertestacker": "white",
+                            "Gago": "lightBlue",
+                            "Boateng": "white",
+                            "Garay": "white",
+                            "Boateng": "white",
+                            "Garay": "lightBlue",
+                            "Ozil": "white",
+                            "Zabaleta": "lightBlue"
+                        }
+                    }
                 }
             ]
         }

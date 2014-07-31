@@ -57,6 +57,7 @@
       "markdown": "*",
       "method-override": "*",
       "mmm": "*",
+      "mongojs": "*",
       "morgan": "*",
       "node-uuid": "*",
       "node.extend": "*",

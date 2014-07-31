@@ -32,13 +32,12 @@ $script([
 ], function() {
     $script([
         '/bower/d3.chart/d3.chart.js',
-
         '/bower/bootstrap-css/js/bootstrap.js',
         '/bower/jquery-equal-height/af.equal-height.js',
         '/bower/jquery-or/js/jquery.or.js',
         '/bower/jquery-placeholder/jquery.placeholder.js',
-        '/bower/jquery-autosize/jquery.autosize.js',
-        '/bower/angular/angular.js',
+        '/bower/highcharts-release/highcharts.src.js',
+        '/bower/angular/angular.js'
     ], function() {
         $script([
             '/bower/ngstorage/ngStorage.js',

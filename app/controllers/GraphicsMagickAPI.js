@@ -17,7 +17,7 @@ var GraphicsMagickAPI = module.exports = {
             '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">' + "\n";
 
         fs.writeFile(svgfile, svgPrefix + svg, function(err) {
-            exec("convert " + svgfile + " " + imgfile, function(error, stdout, stderr) {
+            exec("gm convert " + svgfile + " " + imgfile, function(error, stdout, stderr) {
                 response.writeHead(200, {"Content-Type": "application/json"});
                 response.write(JSON.stringify({
                     success: true,

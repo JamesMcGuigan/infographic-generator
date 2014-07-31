@@ -36,7 +36,8 @@ Thumbs.db
 
 # Temp Files #
 ##############
-*.swp
+*.tmp
+*.temp
 *.swo
 *~
 ~*

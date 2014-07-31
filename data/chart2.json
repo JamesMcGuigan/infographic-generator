@@ -1,5 +1,5 @@
 {
-    "title": "Example Infographic 1",
+    "title": "Example Infographic 2",
     "defaults": {
         "image": {
             "attr": {
@@ -27,8 +27,8 @@
     "type": "svg",
     "label": "Root Node",
     "attr": {
-        "height": 353,
-        "width": 470,
+        "height": 393,
+        "width": 512,
         "fill": "white"
     },
     "children": [
@@ -36,7 +36,7 @@
             "type": "image",
             "label": "Background Image",
             "attr": {
-                "xlink:href": "http://www.sport-kingston.co.uk/Football-330vlarge.jpg"
+                "xlink:href": "http://images.fanpop.com/images/image_uploads/Football-Players-soccer-478091_1024_768.jpg"
             }
         },
         {
@@ -49,11 +49,11 @@
                 "preserveAspectRatio": "xMaxYMax meet"
             },
             "margin": 10,
-            "align": "BottomLeft"
+            "align": "BottomRight"
         },
         {
             "type": "text",
-            "content": "THE MEN WHO'LL RUN THE SHOW",
+            "content": "MEXICO",
             "attr": {
                 "font-size": "24px",
                 "line-height": "24px"
@@ -69,11 +69,11 @@
                 "fill-opacity": 0.5,
                 "fill": "black"
             },
-            "align": "MiddleLeft",
+            "align": "MiddleRight",
             "children": [
                 {
                     "type": "text",
-                    "content": "Players who have completed the most \npasses in the two squads",
+                    "content": "Against Brazil, #{inside} of Mexico's #{total} shots\n where taken from outside the area",
                     "attr": {
                         "font-size": "16px",
                         "line-height": "20px"
@@ -83,42 +83,46 @@
                 },
                 {
                     "type":  "chart",
-                    "chart": "BarChart",
+                    "chart": "DonutChart",
+                    "align": "BottomLeft",
                     "attr": {
-                        "x":      0,
-                        "y":      65,
                         "height": 170,
-                        "width":  400
+                        "width":  200,
+                        "fill": "blue"
+                    },
+                    "options": {
+                        "r": [10,5]
                     },
                     "margin": 10,
                     "data": {
                         "values": {
-                            "Zabaleta": 217,
-                            "Mascherano": 442,
-                            "Lahm": 421,
-                            "Kroos": 418,
-                            "Schweinsteiger": 294,
-                            "Mertestacker": 292,
-                            "Gago": 277,
-                            "Boateng": 270,
-                            "Garay": 277,
-                            "Boateng": 270,
-                            "Garay": 267,
-                            "Ozil": 248
+                            "inside":   2,
+                            "outside": 13
                         },
                         "colors": {
-                            "Mascherano": "lightBlue",
-                            "Lahm": "white",
-                            "Kroos": "white",
-                            "Schweinsteiger": "white",
-                            "Mertestacker": "white",
-                            "Gago": "lightBlue",
-                            "Boateng": "white",
-                            "Garay": "white",
-                            "Boateng": "white",
-                            "Garay": "lightBlue",
-                            "Ozil": "white",
-                            "Zabaleta": "lightBlue"
+                            "inside":  ["green","white"],
+                            "outside": ["grey","transparent"]
+                        }
+                    }
+                },
+                {
+                    "type":  "chart",
+                    "chart": "DotChart",
+                    "align": "BottomRight",
+                    "attr": {
+                        "height": 170,
+                        "width":  100,
+                        "fill": "green"
+                    },
+                    "margin": 10,
+                    "data": {
+                        "values": {
+                            "inside":   2,
+                            "outside": 11
+                        },
+                        "colors": {
+                            "inside":  "grey",
+                            "outside": "green"
                         }
                     }
                 }

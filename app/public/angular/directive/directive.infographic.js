@@ -59,7 +59,7 @@ angular.module('infographicApp.directives')
                             json.attr["y"] += calc(container.height, '-', json.attr.height, '/', 2);
                         }
                         else if( json.align.match(/Bottom/i) ) {
-                            json.attr["y"] = calc(container.height, '-', json.attr.height, '-', json.margin);
+                            json.attr["y"] += calc(container.height, '-', json.attr.height, '-', json.margin);
                         }
                     }
                     return json;
@@ -113,7 +113,7 @@ angular.module('infographicApp.directives')
                             break;
 
                         case "chart":
-                            var data    = util.nestedHashToArray(json.data,"value");
+                            var data    = util.nestedHashToArray(json.data).sort(function(a,b) { return b.value - a.value });
                             var svgNode = decendNode = node.append("g").attr(json.attr).attr({x:0,y:0});
                             var svg = {
                                 x:      calc(json.attr.x),
@@ -133,7 +133,6 @@ angular.module('infographicApp.directives')
                                     var maxBarWidth  = svg.width - textWidth*1.1 - valueWidth;
                                     var barScale     = d3.scale.linear().domain([0,maxValue]).range([0,maxBarWidth]);
 
-                                    console.log('directive.infographic:124', 'decendNode', decendNode);
                                     svgNode.append("g")
                                         .selectAll("text")
                                         .data(data)
@@ -168,9 +167,90 @@ angular.module('infographicApp.directives')
                                         .attr("height", barHeight)
                                         .attr("fill",  function(d) { return d.color; })
                                 }
+                                break;
+
+                                case "DonutChart": {
+                                    var maxRadius    = Math.min(svg.height, svg.width) / 2;
+                                    var valueWidth   = 40;
+                                    svgNode.append("circle")
+                                        .attr("cx", svg.x + maxRadius)
+                                        .attr("cy", svg.y + maxRadius)
+                                        .attr("r", maxRadius)
+                                        .attr("fill","green")
+
+
+                                }
+                                break;
+                                case "DotChart": {
+                                    var dotData = _.flatten( _.map( data, function(d) { return _.times(d.value, function() { return d }) } ) );
+
+                                    console.log('directive.infographic:186', 'dotData', dotData);
+//                                    var dotData = [];
+//                                    for( var i=0, n=data.length; i<n; i++ ) {
+//                                        dotData.push(data[i]);
+//                                    }
+//                                    console.log('directive.infographic:189', 'dotData', dotData);
+
+                                    var grid = {};
+                                    grid.offset = { x: 0, y: 40 };
+                                    grid.x      = svg.x;
+                                    grid.y      = svg.y + grid.offset.y;
+                                    grid.width  = svg.width;
+                                    grid.height = svg.height - grid.offset.y;
+                                    grid.top    = grid.y;
+                                    grid.bottom = grid.y + grid.height;
+                                    grid.left   = grid.x;
+                                    grid.right  = grid.x + grid.width;
+                                    grid.area = grid.x * grid.y;
+
+
+                                    grid.needed = dotData.length;
+                                    grid.n = { x: 1, y: 1 }
+                                    do {
+                                        grid.side = Math.max( grid.width/(grid.n.x+1), grid.height/(grid.n.y+1) );
+                                        grid.n = {
+                                            x: Math.floor(grid.width/grid.side),
+                                            y: Math.floor(grid.height/grid.side)
+                                        };
+                                        grid.size = grid.n.x * grid.n.y;
+
+                                    } while( grid.size < grid.needed );
+
+                                    grid.margin = {
+                                        y: 0,
+                                        x: (grid.width - grid.n.x * grid.side) / 2
+                                    };
+
+                                    grid.r     = 0.8 * grid.side / 2;
+                                    grid.area = grid.n.x * grid.n.y * grid.side;
+                                    console.log('directive.infographic:215', 'grid', grid);
+                                    console.log('directive.infographic:217', 'dotData.length', dotData.length);
+                                    console.assert(dotData.length <= grid.n.x * grid.n.y);
+
+                                    grid.position = function(i) {
+                                        var pos = {};
+                                        pos.row = i % grid.n.y;
+                                        pos.col = Math.floor( i / grid.n.y );
+                                        pos.x   = grid.left   + grid.side/2 + (pos.col * grid.side) + grid.margin.x;
+                                        pos.y   = grid.bottom - grid.side/2 - (pos.row * grid.side) - grid.margin.y;
+
+                                        console.log('directive.infographic:233', 'pos', pos);
+                                        return pos;
+                                    };
+
+                                    svgNode.append("g")
+                                        .selectAll("circle")
+                                        .data(dotData)
+                                        .enter()
+                                        .append("circle")
+                                        .attr("cx", function(d,i) { return grid.position(i).x } )
+                                        .attr("cy", function(d,i) { return grid.position(i).y } )
+                                        .attr("r",  grid.r)
+                                        .attr("fill",  function(d) { return d.color; })
+                                }
+                                break;
                             }
                         break;
-
 
                         default:
                             console.log("directive.infographic - invalid type: ", json.type, json);

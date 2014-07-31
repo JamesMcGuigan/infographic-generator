@@ -41,7 +41,7 @@ angular.module('infographicApp.services')
              *               -> [ { label: "a", value: 1, color: "red" }, { label: "b", value: 2, color: "blue" } ]
              * @param data
              */
-            nestedHashToArray: function(data, sortBy) {
+            nestedHashToArray: function(data) {
                 if( typeof data !== "object" || data instanceof Array ) {
                     console.error("service.util.nestedHashToArray: data is not an object");
                     return [];
@@ -61,19 +61,19 @@ angular.module('infographicApp.services')
                     outputArray.push(outputHash[label]);
                 }
 
-                // Sort
-                _.each($.makeArray(sortBy), function(sortField) {
-                    if( typeof sortBy === "string" && data[sortField] ) {
-                        outputArray.sort(function(a,b) {
-                            if( a[sortField] < b[sortField] ) { return -1; }
-                            if( a[sortField] > b[sortField] ) { return  1; }
-                            return 0;
-                        });
-                    }
-                    else if( sortField instanceof Function ) {
-                        outputArray.sort(sortField);
-                    }
-                });
+//                // Sort
+//                _.each($.makeArray(sortBy), function(sortField) {
+//                    if( typeof sortBy === "string" && data[sortField] ) {
+//                        outputArray.sort(function(a,b) {
+//                            if( a[sortField] < b[sortField] ) { return -1; }
+//                            if( a[sortField] > b[sortField] ) { return  1; }
+//                            return 0;
+//                        });
+//                    }
+//                    else if( sortField instanceof Function ) {
+//                        outputArray.sort(sortField);
+//                    }
+//                });
 
                 return outputArray;
             }

@@ -37,16 +37,22 @@ var CrudFileAPI = module.exports = {
             fs.readdir(CrudFileAPI.dirname, function (error, files) {
                 if( error ) { CrudFileAPI.render(response, error, null); return }
 
-                async.map(files, function(file, done) {
-                    var hash = {
-                        id:    file,
-                        date:  fs.statSync(CrudFileAPI.dirname+'/'+file).mtime,
-                        type:  "file",
-                        title: JSON.parse(fs.readFileSync(CrudFileAPI.dirname+'/'+file)).title
-                    };
-                    done(null, hash);
-                }, function (error, data) {
-                    CrudFileAPI.render(response, error, data);
+                async.filter(files, function(file, done) {
+                    done( fs.lstatSync(CrudFileAPI.dirname+"/"+file).isFile() );
+                }, function(files) {
+
+                    async.map(files, function(file, done) {
+                        var hash = {
+                            id:    file,
+                            date:  fs.statSync(CrudFileAPI.dirname+'/'+file).mtime,
+                            type:  "file",
+                            title: JSON.parse(fs.readFileSync(CrudFileAPI.dirname+'/'+file)).title
+                        };
+                        done(null, hash);
+                    }, function (error, data) {
+                        CrudFileAPI.render(response, error, data);
+                    });
+
                 });
             });
         }

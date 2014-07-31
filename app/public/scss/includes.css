@@ -52,7 +52,18 @@ textarea.code {
   width: 100%;
 }
 
-/* line 12, ../scss-src/elements.scss */
+/* line 7, ../scss-src/elements.scss */
+input.ng-invalid,
+textarea.ng-invalid {
+  border: 2px solid red;
+}
+
+/* line 10, ../scss-src/elements.scss */
+form.ng-invalid button {
+  display: none;
+}
+
+/* line 20, ../scss-src/elements.scss */
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,

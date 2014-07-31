@@ -1,7 +1,10 @@
-var CrudMongoAPI = require("../controllers/CrudMongoAPI.js");
-var CrudFileAPI  = require("../controllers/CrudFileAPI.js");
+var GraphicsMagickAPI = require("../controllers/GraphicsMagickAPI.js");
+var CrudMongoAPI      = require("../controllers/CrudMongoAPI.js");
+var CrudFileAPI       = require("../controllers/CrudFileAPI.js");
 
 module.exports = function(app, db) {
+    app.post("/GraphicsMagick/svg/", GraphicsMagickAPI.render);
+
     app.get(   "/api/mongo/:table",     CrudMongoAPI.get);
     app.get(   "/api/mongo/:table/:id", CrudMongoAPI.get);
 

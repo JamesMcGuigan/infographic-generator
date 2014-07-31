@@ -3,8 +3,14 @@ angular.module('infographicApp.directives').directive('jsonEditor', [ '$window',
         require: 'ngModel',
         link: function(scope, element, attrs, ngModelController) {
             ngModelController.$parsers.push(function(data) {
-                //convert data from view format to model format
-                return JSON.parse(data);
+                try {
+                    var json = JSON.parse(data);
+                    ngModelController.$setValidity('json', true);
+                    return json;
+                } catch(e) {
+                    ngModelController.$setValidity('json', false);
+                }
+
             });
 
             ngModelController.$formatters.push(function(data) {

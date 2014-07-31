@@ -26,4 +26,5 @@ angular.module('infographicApp.config', [])
 
 angular.module('infographicApp.controllers', ['ngStorage','ngPrettyJson']);
 angular.module('infographicApp.directives', []);
+angular.module('infographicApp.validators', []);
 angular.module('infographicApp.services', []);

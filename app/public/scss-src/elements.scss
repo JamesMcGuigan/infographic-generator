@@ -3,6 +3,14 @@ textarea.code {
   width: 100%;
 }
 
+input.ng-invalid,
+textarea.ng-invalid {
+  border: 2px solid red;
+}
+form.ng-invalid button {
+  display: none;
+}
+
 // boostrap.css (line 2071)
 .table > thead > tr > th,
 .table > tbody > tr > th,

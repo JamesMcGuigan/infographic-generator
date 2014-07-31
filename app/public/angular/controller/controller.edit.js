@@ -29,6 +29,8 @@ module.controller('EditController', ['$scope', '$routeParams', '$http', "Infogra
                     } else {
                         alert("Error: " + response.error);
                     }
+                }, function(response) {
+                    alert("Error: " + response.error);
                 });
             } else {
 //                InfographicDB.get({ id: $routeParams.id }, function(response) {

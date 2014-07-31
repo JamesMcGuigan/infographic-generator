@@ -1,3 +1,5 @@
+process.chdir(__dirname);
+
 process.argv.forEach(function (value, index, array) {
     if( value.match(/^NODE_ENV=/)   ) { process.env.NODE_ENV   = value.replace(/^NODE_ENV=/,  ''); }
     if( value.match(/^PORT_HTTP=/)  ) { process.env.PORT_HTTP  = value.replace(/^PORT_HTTP=/, ''); }
@@ -82,12 +84,10 @@ app.use(                express.static(__dirname + '/app/public'));
 app.use('/bower',       express.static(__dirname + '/bower'));
 app.use('/data',        express.static(__dirname + '/data'));
 app.use('/vendor',      express.static(__dirname + '/vendor'));
-app.use('/svgRendered', express.static(__dirname + '/svgRendered'));
 app.use(connectDomain()); // allow express to output propper stack traces
 
 require('./app/routes/pageRoutes.js')(app);
-require('./app/routes/CrudAPIRoutes.js')(app);
-require('./app/routes/GraphicsMagickRoutes.js')(app);
+require('./app/routes/APIRoutes.js')(app);
 //require('./app/routes/errorRoutes.js')(app);
 
 

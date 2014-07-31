@@ -14,7 +14,7 @@ var GraphicsMagickAPI = module.exports = {
         var imgfile     = "data/rendered/" + uuid + "." + format;
 
         fs.writeFile(svgfile, svg, function(err) {
-            exec("convert " + svgfile + " " + imgfile, function(error, stdout, stderr) {
+            exec("gm convert " + svgfile + " " + imgfile, function(error, stdout, stderr) {
                 response.writeHead(200, {"Content-Type": "application/json"});
                 response.write(JSON.stringify({
                     success: true,

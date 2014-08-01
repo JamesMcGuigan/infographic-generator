@@ -1,187 +1,112 @@
-infographic-generator
+Infographic Generator
 =====================
 
-A website for custom generating infographics
+Proof of concept demonstration for generating custom infographics, built in javascript using node.js, angular.js, d3.js and GraphicsMagick
 
+See http://infographic.jamesmcguigan.com for a live demo.
+
+
+Installation
+============
+<pre><code>
+git clone git@github.com:JamesMcGuigan/infographic-generator.git
+cd infographic-generator
+npm install  # will also download bower dependencies and compile the client side browserify.js file
+npm start
+</code></pre>
+
+Then open up the following localhost url
+http://localhost:4000/
+
+See [package.json](https://github.com/JamesMcGuigan/infographic-generator/blob/master/package.json) for a list of other project npm scripts
+
+
+Puppet configuration
+====================
+
+Demo server deployment is managed via puppet using the following scripts:  
+https://github.com/JamesMcGuigan/puppet-config
+<pre><code>
+rake puppet
+rake deploy[infographic.jamesmcguigan.com]
+</code></pre>
+
+
+
+Project Layout
+==============
+
+- [/data/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/data) - Example configuration files
+- [/data/sources/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/data/sources/) - Example data sources
+- [/app/config/config.js](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/config/config.js) - Node configuration file
+- [/app/controllers/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/controllers/) - Node API logic
+- [/app/routes/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/routes/) - Node URL routing
+- [/app/views/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/views/) - Mustache templates for generating initial HTML page
+- [/app/public/scss-src/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/public/scss-src/) - SASS source files
+- [/app/public/scss/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/public/scss/) - Compiled SASS -> CSS
+- [/app/public/html/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/public/html/) - Angualar HTML Snippits
+- [/app/public/angular/](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/public/angular/) - Angualar.js Application
+- [/app/public/angular/directive/directive.infographic.js](https://github.com/JamesMcGuigan/infographic-generator/tree/master/app/public/angular/directive/directive.infographic.js) - The main logic for the SVG generator
 
 Infographic JSON Configuration Spec
 ===================================
 
-<pre><code>
-[ uuid: {
-    name: "",
-    metadata: {},
+*Sample Configuration Files:*
+- https://github.com/JamesMcGuigan/infographic-generator/blob/master/data/chart1.json
+- https://github.com/JamesMcGuigan/infographic-generator/blob/master/data/chart2.json
 
-    height: <px>, // pixels
-    width:  <px>, // pixels
-    
-    thumbnails: [{
-        filetype: "jpeg"|"png"|"gif"|"svg",
-        height:   <px>,
-        width:    <px>
-    }, ... ],
-    
-    images: [{
-        id:         background|watermark,
-        css: {
-            background-position: "0px 0px",
-            background-size:     auto,  
-            background-repeat:   repeat|repeat-x|repeat-y|no-repeat
-            background-image:    url(),
-            margin-*:   0,            // TODO: remove
-            width:      auto|100%,    // crop|scale
-            height:     auto|100%,    // crop|scale
-            zoom:       100%,
-            z-index:    0,  // incrementing
-            background: transparent
-        },
-        gravity:    Center|Top|TopRight|Right|BottomRight|Bottom|BottomLeft|Left|TopLeft,
-    }, ... ],
-    
-    overlays: [{
-        id:         1|2|etc,
-        css: {
-            margin:     <px|%>, 
-            padding:    <px|%>, 
-            opacity:    50%, 
-            background: black, 
-            height:     100%, 
-            width:      100%,
-        },
-        gravity:    Center|Top|TopRight|Right|BottomRight|Bottom|BottomLeft|Left|TopLeft  
-    }, ... ]
-    
-    
-    text: [{
-        content:    "",
-        parent:     root|overlays[0]|images[0],
-        gravity:    Center|Top|TopRight|Right|BottomRight|Bottom|BottomLeft|Left|TopLeft
-        css: {
-            font-size:   12px,
-            font-family: "Helvetica Neue",
-            margin:      <px|%>,  // default: 0px 
-            padding:     <px|%>,  // default: 0px
-            opacity:     100%, 
-            background:  transparent
-        }
-    }, ... ]
-    
-    data: {
-        url:     <url>,
-        format:  json|csv,
-        mapping: ???
-    },
+*Sample Defaults Files:*
+- http://infographic.jamesmcguigan.com/data/sources/defaults.json
 
-    charts: [{
-        type:    bar|stacked-bar|donut|double-donut|column|stacked-column|line|bubble|area|scatter|
-        options: <d3.js parameters>,
-        
-        parent:  root|overlays[0]|images[0],
-        gravity: Center|Top|TopRight|Right|BottomRight|Bottom|BottomLeft|Left|TopLeft
-        css: {
-            height:      <px|%>,  
-            width:       <px|%>,
-            margin:      <px|%>,  // default: 0px 
-            padding:     <px|%>,  // default: 0px
-            opacity:     100%, 
-            background:  transparent
-        }
-    }, ...]
+*Sample Data Files:*
+- http://infographic.jamesmcguigan.com/data/sources/mexico-brazil-shots.json
+- http://infographic.jamesmcguigan.com/data/sources/player-passes.json
 
-    
+The JSON configuration file starts with a root "type":"svg" element, followed by an array of "children" elements. The code will auto-convert between arrays and objects as needed.
 
-}, ... ]
-</code></pre>
+Any property name can be suffixed with URL to load data from a remote url, ie "defaults" -> "defaultsURL"
 
-Example
-<code><pre>
+{
+- "defaults":       this hash is organized by type, and inherits down the tree. It provides defaults options that can be overridden in children elements.
+- "title":          this property on the "svg" root node is shown in the file listings dialog
+- "label":          this property is just a human readable string for easily identifying elements
+- "type":           "svg"|"image"|"rect"|"text"|"chart" - creates a SVG element of the same name, "chart" will render a custom d3.js SVG object
+- "attr":           this property exposes the raw SVG attributes for each element - either read the book ["SVG Essentials"](http://read.pudn.com/downloads135/ebook/573344/OReilly-SVG-Essential.pdf) or see the the full technical SVG spec: http://www.w3.org/TR/SVG11/
+- "attr":           { x: 0, y: 0, height: "100px", width: "100px", "xlink:href": <url>, "font-size": "24px", "line-height": "24px", "fill": "black", "fill-opacity": 0.5 } - these are the most common and useful attributes 
+- "align":          "Top|Middle|Bottom" + "Left|Center|Right" - 
+- "margin":         custom property which adds some additional xy spacing when used with "align"
+- "content":        for "type":"text" objects only, provides the content for the string
+- "children"        [{},{},{},...] of child nodes to be rendered relative to the parent xy and height|width  
+ 
+*Chart Specific Options*
+- "chart":          currently only "BarChart"|"DonutChart"|"DotChart" - which type of chart to draw
+- "data"|"dataURL": provides configuration data for the chart, typically: { "values": { "field": value, ... }, "colors": { "field": color, ... } }
+- "options":        "DonutChart" only { "borderRadius": 20, "highlightRadius": 10, "highlight": { "outside": "white" } }
 
-{ 
-    defaults: {
-        all: {
-            css: {
-                position: "relative",
-                height:   "auto",
-                width:    "auto",
-                margin:   "0",
-                padding:  "0"
-            }
-        },
-        background: 
-        image: {
-            type: "image",
-            css: {
-            }
-        },
-        text: {
-            font-size:   12px,
-            font-family: "Helvetica Neue",
-            color:       "white"        
-        }
-    },
-    "infographics": [{
-        type: "image-background",
-        css: {
-            height:       800px,
-            width:        600px,
-            padding:      20px,
-            padding-left: 10px
-        },
-        image: {
-            url: "http://www.sport-kingston.co.uk/Football-330vlarge.jpg",
-            width:  100%,
-            height: 100%
-        },
-        children: [
-            {
-                type: "image-watermark",
-                image: {
-                    url: "http://matchstory.co.uk/wp-content/uploads/2013/08/ms_web_logo3.png",
-                },
-                css: {
-                    position: "absolute"
-                },
-                gravity: "BottomLeft"  
-            },
-            {
-                type:    "text",
-                content: "THE MEN WHO'LL RUN THE SHOW",
-                gravity: "TopLeft"
-                css: {
-                    font-size:   24px,
-                    line-height: 50px,
-                    font-family: "Helvetica Neue",
-                    color:       "white"        
-                }
-            },
-            {
-                type:    "overlay",
-                gravity: "Left",
-                css: {
-                    opacity:       "50%",
-                    margin-top:    "50px",
-                    margin-bottom: "50px",
-                    background:    ""
-                },
-                children: [
-                    {
-                        type:    "text",
-                        content: "Players who have completed the most passes in the two squads",
-                        gravity: "TopLeft"
-                        css: {
-                            font-size:   "12px",
-                            line-height: "20px",
-                            font-family: "Helvetica Neue",
-                            color:       "white"        
-                        }
-                    },
-                    {
-                        type:    "chart"
-                    },
-                ]
-            }
+*Text Interpolation*
+- "content" strings can be include "#{values.outside} / #{stats.total}" using dot separated notation
+-- "#{values.field}" reads values from "data.values"
+-- "#{colors.field}" reads values from "data.colors"
+-- "#{stats.length}" number of entries in data.values
+-- "#{stats.max}"    maximum number in data.values
+-- "#{stats.min}"    minimum number in data.values
+-- "#{stats.total}"  sum of numbers in data.values
+-- "#{stats.percent.field}"  percentage string (ie "85%") calculated using: values.field / stats.total
+-- "#{stats.factor.value}"   number of times each individual string/number value was encountered 
+--  #{stats.colors.factor.white} number of "white" entries in data.colors
 
-        ]
-    }]
-}
-</code></pre>
+
+The JSON configuration file needs to be syntactically valid, which mostly means quoting "key": "value" (except raw numbers) 
+and making sure commas are in the correct places (after every item in a list, except the last)
+
+
+TODO
+====
+
+- JSON configuration files are currently saved only to the filesystem, this made life easier for development. It would be relatively easy to add in MongoDB support.
+  
+- There is currently no way of editing the /data/sources/*.json via the web interface, but you can always switch from "dataURL" to "data" for inline editing
+
+- In theory a custom AJAX interface could be created for editing this configuration file could be created, but learning JSON and SVG attributes is fairly easy 
+
+- BUG: the positioning of "children" inside "type":"chart" entries is currently buggy

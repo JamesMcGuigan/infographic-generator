@@ -71,16 +71,16 @@ angular.module('infographicApp.services')
                         length: values.length,
                         total:  _.reduce(values, function(N, n){ return Number(N) + Number(n); }, 0)
                     };
-                    outputArray.stats[keys].mean = outputArray.stats[keys].sum / outputArray.stats[keys].length;
+                    outputArray.stats[keys].mean    = outputArray.stats[keys].sum / outputArray.stats[keys].length;
 
                     var factor = outputArray.stats[keys].factor = {};
                     for( var label in data[keys] ) {
                         factor[ data[keys][label] ] = (factor[ data[keys][label] ] || 0) + 1;
                     }
 
-                    var percentage = outputArray.stats[keys].percentage = {};
+                    var percent = outputArray.stats[keys].percent = {};
                     for( var label in data[keys] ) {
-                        percentage[ data[keys][label] ] = (percentage[ data[keys][label] ] || 0) + 1;
+                        percent[ label ] = Math.round(data[keys][label] / outputArray.stats[keys].total * 100) + "%";
                     }
                 }
                 console.log('service.util:78', 'outputArray', outputArray);

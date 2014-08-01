@@ -158,7 +158,7 @@ angular.module('infographicApp.directives')
 
                         case "chart":
                             var data    = util.nestedHashToArray(json.data).sort(function(a,b) { return b.value - a.value });
-                            var svgNode = decendNode = node.append("g").attr(json.attr).attr({x:0,y:0});
+                            var svgNode = decendNode = node;//.append("g").attr(json.attr).attr({x:0,y:0});
                             var svg = {
                                 x:      calc(json.attr.x),
                                 y:      calc(json.attr.y),
@@ -214,15 +214,85 @@ angular.module('infographicApp.directives')
                                 break;
 
                                 case "DonutChart": {
-                                    var maxRadius    = Math.min(svg.height, svg.width) / 2;
-                                    var valueWidth   = 40;
-                                    svgNode.append("circle")
-                                        .attr("cx", svg.x + maxRadius)
-                                        .attr("cy", svg.y + maxRadius)
-                                        .attr("r", maxRadius)
-                                        .attr("fill","green")
+                                    var circle = {};
+                                    circle.r = Math.min(svg.height, svg.width) / 2;
+                                    circle.cx = svg.x + circle.r;
+                                    circle.cy = svg.y + circle.r;
+                                    // <path d="rx ry x-axis-rotation large-arc-flag sweep-flag x y"/>
+
+                                    var arcSegment = function(d, circle) {
+                                        if( !arcSegment.lastArc ) { arcSegment.reset(); }
+
+                                        var arc = { start: {}, end: {}};
+                                        arc.percentage  = (d.value / data.stats.values.total);
+                                        arc.length      = arc.percentage * 2 * Math.PI;
+                                        arc.start.angle = arcSegment.lastArc.end.angle;
+                                        arc.end.angle   = arc.start.angle - arc.length % (2 * Math.PI);
+                                        arc.start.angle = Math.round(arc.start.angle * 100) / 100;
+                                        arc.end.angle   = Math.round(arc.end.angle   * 100) / 100;
+                                        arc.start.x     = Math.round(circle.cx - Math.sin(arc.start.angle) * circle.r);
+                                        arc.start.y     = Math.round(circle.cy - Math.cos(arc.start.angle) * circle.r);
+                                        arc.end.x       = Math.round(circle.cx - Math.sin(arc.end.angle)   * circle.r);
+                                        arc.end.y       = Math.round(circle.cy - Math.cos(arc.end.angle)   * circle.r);
+                                        arc.xrotation   = 0;
+                                        arc.sweep       = 0; //!json.options.anticlockwise;
+                                        arc.largearc    = Math.abs(arc.length) >= Math.PI ? 1 : 0;
+                                        if( arc.sweep ) { arc.largearc = Number(!arc.largearc); }
 
 
+                                        arcSegment.lastArc = arc;
+                                        return arc;
+                                    };
+                                    arcSegment.reset = function() {
+                                        arcSegment.lastArc = { end: { angle: 0 } };
+                                    };
+
+
+                                    //svgNode.append("circle")
+                                    //    .attr("cx",circle.cx)
+                                    //    .attr("cy",circle.cy)
+                                    //    .attr("r",circle.r)
+
+
+                                    svgNode.append("g")
+                                        .selectAll("path")
+                                        .data(data)
+                                        .enter()
+                                        .append("path")
+                                        .attr("fill","none")
+                                        .attr("stroke",function(d,i) { return d.color; })
+                                        .attr("stroke-width", json.options.borderRadius || 10)
+                                        .attr("d", function(d,i) {
+                                            var arc = arcSegment(d, circle);
+                                            var path = [
+                                                "M", arc.end.x, arc.end.y,
+                                                "A", circle.r, circle.r, arc.xrotation, arc.largearc, arc.sweep, arc.start.x, arc.start.y
+                                            ].join(" ");
+                                            return path;
+                                        });
+
+                                    if( json.options && json.options.highlight ) {
+                                        arcSegment.reset();
+                                        circle.r -= calc(json.options.borderRadius,json.options.highlightRadius,"/",2);
+                                        svgNode.append("g")
+                                            .selectAll("path")
+                                            .data(data)
+                                            .enter()
+                                            .append("path")
+                                            .attr("fill","none")
+                                            .attr("stroke",function(d,i) {
+                                                return json.options.highlight[d.label] || "none"
+                                            })
+                                            .attr("stroke-width", json.options.highlightRadius || 5)
+                                            .attr("d", function(d,i) {
+                                                var arc = arcSegment(d, circle);
+                                                var path = [
+                                                    "M", arc.end.x, arc.end.y,
+                                                    "A", circle.r, circle.r, arc.xrotation, arc.largearc, arc.sweep, arc.start.x, arc.start.y
+                                                ].join(" ");
+                                                return path;
+                                            });
+                                    }
                                 }
                                 break;
                                 case "DotChart": {

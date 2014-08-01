@@ -65,14 +65,31 @@
                     "chart": "DonutChart",
                     "align": "BottomLeft",
                     "attr": {
-                        "height": 170,
-                        "width":  200,
+                        "height": 150,
+                        "width":  150,
                         "fill": "blue"
                     },
                     "options": {
-                        "r": [10,5]
+                        "borderRadius":    20,
+                        "highlightRadius": 10,
+                        "highlight": {
+                            "outside": "white"
+                        }
+                    },
+                    "margin": 20,
+                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                },
+                {
+                    "type": "text",
+                    "content": "#{stats.percent.outside}",
+                    "attr": {
+                        "x": "65px",
+                        "y": "-95px",
+                        "font-size": "20px",
+                        "line-height": "20px"
                     },
                     "margin": 10,
+                    "align": "BottomLeft",
                     "dataURL": "/data/sources/mexico-brazil-shots.json"
                 },
                 {

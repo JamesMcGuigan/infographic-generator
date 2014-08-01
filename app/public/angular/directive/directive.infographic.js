@@ -167,10 +167,10 @@ angular.module('infographicApp.directives')
                             };
                             switch( json.chart ) {
                                 case "BarChart": {
-                                    var textWidth    = 100;
+                                    var textWidth    = 120;
                                     var valueWidth   = 40;
                                     var valueOffsetX = +10;
-                                    var textOffsetY  = -7;
+                                    var textOffsetY  = 1;
                                     var rowHeight    = svg.height / data.length;
                                     var barHeight    = rowHeight * 0.8;
                                     var maxValue     = Math.max.apply(Math, _.pluck(data, "value"));
@@ -183,7 +183,7 @@ angular.module('infographicApp.directives')
                                         .enter()
                                         .append("text")
                                         .attr("x", textWidth + svg.x)
-                                        .attr("y", function(d,i) { return (i+1) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + textOffsetY + svg.y; })
                                         .attr("height", barHeight)
                                         .attr("text-anchor", "end")
                                         .attr("alignment-baseline", "central")
@@ -207,7 +207,7 @@ angular.module('infographicApp.directives')
                                         .append("text")
                                         .text(function(d) { return d.value; })
                                         .attr("x", function(d,i) { return textWidth * 1.1 + barScale(d.value) + valueOffsetX + svg.x; })
-                                        .attr("y", function(d,i) { return (i+1) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + textOffsetY + svg.y; })
                                         .attr("height", barHeight)
                                         .attr("fill",  function(d) { return d.color; })
                                 }

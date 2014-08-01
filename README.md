@@ -92,6 +92,7 @@ Any property name can be suffixed with URL to load data from a remote url, ie "d
 - "#{stats.percent.field}"  percentage string (ie "85%") calculated using: values.field / stats.total
 - "#{stats.factor.value}"   number of times each individual string/number value was encountered 
 -  #{stats.colors.factor.white} number of "white" entries in data.colors
+
 }
 
 The JSON configuration file needs to be syntactically valid, which mostly means quoting "key": "value" (except raw numbers) 

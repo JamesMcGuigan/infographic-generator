@@ -1,0 +1,26 @@
+{
+    "defaults": {
+        "image": {
+            "attr": {
+                "height": "inherit",
+                "width": "inherit",
+                "preserveAspectRatio": "xMinYMin slice"
+            }
+        },
+        "text": {
+            "attr": {
+                "font-size": "24px",
+                "line-height": "24px",
+                "font-family": "Helvetica Neue",
+                "fill": "white"
+            },
+            "align": "TopLeft"
+        },
+        "chart": {
+            "font-size":   "12px",
+            "line-height": "12px",
+            "font-family": "Helvetica Neue",
+            "fill":        "white"
+        }
+    }
+}

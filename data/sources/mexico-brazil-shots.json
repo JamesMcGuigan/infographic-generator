@@ -1,0 +1,12 @@
+{
+    "values": {
+        "inside": 2,
+        "outside": 11
+    },
+    "colors": {
+        "inside": "grey",
+        "outside": "green"
+    }
+}
+
+

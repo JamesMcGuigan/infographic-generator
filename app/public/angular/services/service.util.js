@@ -1,6 +1,6 @@
 angular.module('infographicApp.services')
     .factory("util", function() {
-        return {
+        var util = {
             //***** Module Functions *****//
 
             /**
@@ -20,7 +20,7 @@ angular.module('infographicApp.services')
                         operator = arguments[i];
                     } else {
                         if( typeof arg === "string" ) {
-                            arg = Number(arg.replace(/[^\d.]+/g,'')) || 0;
+                            arg = Number(arg.replace(/[^+\d.-]+/g,'')) || 0;
                         } else {
                             arg = Number(arg) || 0;
                         }
@@ -47,7 +47,10 @@ angular.module('infographicApp.services')
                     return [];
                 }
 
-                var outputHash = {};
+                var outputHash  = {};
+                var outputArray = [];
+                outputArray.stats = {};
+
                 for( var keys in data ) {
                     var key = keys.replace(/s$/,'');
                     for( var label in data[keys] ) {
@@ -56,26 +59,65 @@ angular.module('infographicApp.services')
                     }
                 }
 
-                var outputArray = [];
                 for( var label in outputHash ) {
                     outputArray.push(outputHash[label]);
                 }
 
-//                // Sort
-//                _.each($.makeArray(sortBy), function(sortField) {
-//                    if( typeof sortBy === "string" && data[sortField] ) {
-//                        outputArray.sort(function(a,b) {
-//                            if( a[sortField] < b[sortField] ) { return -1; }
-//                            if( a[sortField] > b[sortField] ) { return  1; }
-//                            return 0;
-//                        });
-//                    }
-//                    else if( sortField instanceof Function ) {
-//                        outputArray.sort(sortField);
-//                    }
-//                });
+                for (var keys in data) {
+                    var values = _.values(data[keys]);
+                    outputArray.stats[keys] = {
+                        max:    Math.max.apply(Math,values),
+                        min:    Math.min.apply(Math,values),
+                        length: values.length,
+                        total:  _.reduce(values, function(N, n){ return Number(N) + Number(n); }, 0)
+                    };
+                    outputArray.stats[keys].mean = outputArray.stats[keys].sum / outputArray.stats[keys].length;
 
+                    var factor = outputArray.stats[keys].factor = {};
+                    for( var label in data[keys] ) {
+                        factor[ data[keys][label] ] = (factor[ data[keys][label] ] || 0) + 1;
+                    }
+
+                    var percentage = outputArray.stats[keys].percentage = {};
+                    for( var label in data[keys] ) {
+                        percentage[ data[keys][label] ] = (percentage[ data[keys][label] ] || 0) + 1;
+                    }
+                }
+                console.log('service.util:78', 'outputArray', outputArray);
                 return outputArray;
+            },
+            parseText: function(text, data) {
+                var interpolerationRegex = new RegExp(/#{(.*?)}/g);
+                if( !text.match(interpolerationRegex) ) {
+                    return text;
+                } else {
+                    var stats = util.nestedHashToArray(data).stats;
+                    var output = text.replace(interpolerationRegex, function(match, capture) {
+                        var namespace = capture.split(/\./);
+                        var source = data;
+
+                        if( namespace && namespace[0] === "stats" ) {
+                            source = stats;
+                            namespace.shift();
+                        }
+
+                        while( namespace.length ) {
+                            var key = namespace.shift();
+                            if( source.hasOwnProperty(key) ) {
+                                source = source[key];
+                            } else {
+                                if( source.hasOwnProperty("values") && source["values"].hasOwnProperty(key) ) {
+                                    source = source["values"][key];
+                                } else {
+                                    return match;
+                                }
+                            }
+                        }
+                        return String(source);
+                    });
+                    return output;
+                }
             }
         };
+        return util;
     });

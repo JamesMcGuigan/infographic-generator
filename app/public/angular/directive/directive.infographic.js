@@ -1,3 +1,5 @@
+var async = require("async");
+
 angular.module('infographicApp.directives')
     .run(['$http',function($http) {
         //$http({ method: 'GET', url: '/elements/infographic.html', cache: true });
@@ -11,18 +13,52 @@ angular.module('infographicApp.directives')
                 infographic: "="
             },
             link: function (scope, element, attrs) {
-                var debug = true;
-                var calc  = util.calc;
+                var debug     = true;
+                var calc      = util.calc;
 
                 scope.$watch("infographic", function() {
                     $timeout(function() {
                         var rootJSON = $.extend({},scope["infographic"]);
                         if( rootJSON ) {
-                            render(d3.select(element[0]), rootJSON);
+                            fetchURLs(rootJSON, function(json) {
+                                rootJSON = json || {};
+                                render(d3.select(element[0]), rootJSON);
+                            });
                         }
                     });
                 });
 
+
+                var scanURLs = function(json) {
+                    if( !json ) { return []; }
+                    if( json instanceof Array ) { return _.flatten(json.map(scanURLs)); }
+
+                    var urlRegexp = new RegExp(/URL$/);
+                    output = _.keys(json)
+                                .filter( RegExp.prototype.test.bind(urlRegexp) )
+                                .map(function(key){ return {
+                                    pointer: json,
+                                    url:     json[key],
+                                    key:     key.replace(urlRegexp, "")
+                                }});
+
+                    if (json["children"]) {
+                        output = output.concat( scanURLs(json["children"]) );
+                    }
+                    return output;
+                };
+
+                var fetchURLs = function(json, callback) {
+                    var scans = scanURLs(json);
+                    async.each( scans, function(scan, done) {
+                        $http.get(scan.url).success(function(result) {
+                            scan.pointer[scan.key] = result && result[scan.key] || result;
+                            done();
+                        });
+                    }, function(error, result) {
+                        callback(json);
+                    });
+                };
 
                 var parseJson = function(node, json, defaults, container) {
                     json = $.extend(true, {}, json); // clone
@@ -36,6 +72,10 @@ angular.module('infographicApp.directives')
                         if( json.attr[key] === "inherit" ) {
                             json.attr[key] = node.attr(key) || ""
                         }
+                    }
+
+                    if( json.content ) {
+                        json.content = util.parseText(json.content, json.data);
                     }
 
                     // set x|y attrs, based on json[height|width] and node[height|width]
@@ -65,6 +105,7 @@ angular.module('infographicApp.directives')
                     return json;
                 };
 
+
                 /**
                  * Recursive function, renders new svg eleemnt inside node, according to json, then recurses through json.children
                  * @param node      d3 container node, each recurision will add nodes to this node
@@ -72,7 +113,10 @@ angular.module('infographicApp.directives')
                  * @param defaults  [internal] defaults json, to be passed down the tree
                  */
                 var render = function(node, json, defaults, container) {
-                    if( !json || _.keys(json).length === 0 ) { return; } // ignore empty configs
+                    if( !json                    ) { return }
+                    if( json instanceof Array    ) { return _.each( json, function(json) { render(node, json, defaults, container) }); }
+                    if(_.keys(json).length === 0 ) { return; }
+
 
                     defaults   = $.extend(true, {}, defaults, json && json.defaults); // defaults for json extend down the tree,
                     container = container || $.extend({
@@ -86,7 +130,7 @@ angular.module('infographicApp.directives')
 
 
 
-                    if( debug ) { console.log('directive.infographic:38', 'json', $.extend({}, json, {children:null})); }
+                    if( debug ) { console.info('directive.infographic:render', 'json', $.extend({}, json, {children:null})); }
 
                     var decendNode = node;
                     switch( json.type ) {
@@ -184,15 +228,8 @@ angular.module('infographicApp.directives')
                                 case "DotChart": {
                                     var dotData = _.flatten( _.map( data, function(d) { return _.times(d.value, function() { return d }) } ) );
 
-                                    console.log('directive.infographic:186', 'dotData', dotData);
-//                                    var dotData = [];
-//                                    for( var i=0, n=data.length; i<n; i++ ) {
-//                                        dotData.push(data[i]);
-//                                    }
-//                                    console.log('directive.infographic:189', 'dotData', dotData);
-
                                     var grid = {};
-                                    grid.offset = { x: 0, y: 40 };
+                                    grid.offset = { x: 0, y: 0 };
                                     grid.x      = svg.x;
                                     grid.y      = svg.y + grid.offset.y;
                                     grid.width  = svg.width;
@@ -201,10 +238,10 @@ angular.module('infographicApp.directives')
                                     grid.bottom = grid.y + grid.height;
                                     grid.left   = grid.x;
                                     grid.right  = grid.x + grid.width;
-                                    grid.area = grid.x * grid.y;
+                                    grid.area   = grid.x * grid.y;
 
 
-                                    grid.needed = dotData.length;
+                                    grid.sizeNeeded = dotData.length;
                                     grid.n = { x: 1, y: 1 }
                                     do {
                                         grid.side = Math.max( grid.width/(grid.n.x+1), grid.height/(grid.n.y+1) );
@@ -214,7 +251,7 @@ angular.module('infographicApp.directives')
                                         };
                                         grid.size = grid.n.x * grid.n.y;
 
-                                    } while( grid.size < grid.needed );
+                                    } while( grid.size < grid.sizeNeeded );
 
                                     grid.margin = {
                                         y: 0,
@@ -223,8 +260,6 @@ angular.module('infographicApp.directives')
 
                                     grid.r     = 0.8 * grid.side / 2;
                                     grid.area = grid.n.x * grid.n.y * grid.side;
-                                    console.log('directive.infographic:215', 'grid', grid);
-                                    console.log('directive.infographic:217', 'dotData.length', dotData.length);
                                     console.assert(dotData.length <= grid.n.x * grid.n.y);
 
                                     grid.position = function(i) {
@@ -234,7 +269,6 @@ angular.module('infographicApp.directives')
                                         pos.x   = grid.left   + grid.side/2 + (pos.col * grid.side) + grid.margin.x;
                                         pos.y   = grid.bottom - grid.side/2 - (pos.row * grid.side) - grid.margin.y;
 
-                                        console.log('directive.infographic:233', 'pos', pos);
                                         return pos;
                                     };
 
@@ -253,7 +287,6 @@ angular.module('infographicApp.directives')
                         break;
 
                         default:
-                            console.log("directive.infographic - invalid type: ", json.type, json);
                             break;
 
                     }
@@ -282,13 +315,9 @@ angular.module('infographicApp.directives')
                                 break;
                         }
 
-                        for( var i=0, n=json.children.length; i<n; i++ ) {
-                            render(childrenNode, json.children[i], defaults, container);
-                        }
+                        render(childrenNode, json.children, defaults, container);
                     }
                 };
-
-
             }
         };
     }]);

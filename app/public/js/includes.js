@@ -20,51 +20,57 @@
 
 // load all of the dependencies asynchronously.
 $script([
-    '/bower/datejs/build/date-en-GB.js',
-    '/bower/fastclick/lib/fastclick.js',
-    '/bower/jquery-legacy/jquery.js',
-    '/bower/underscore/underscore.js',
-    '/vendor/browserify.js',
+//    '/bower/array-generics/array.generics.js',
     '/vendor/firebugx/firebugx.js',
     '/vendor/polyfills/storage.js',
-    '/bower/d3/d3.js'
+    '/bower/es5-shim/es5-shim.js'
 ], function() {
     $script([
-        '/bower/angular/angular.js',
-        '/bower/bootstrap-css/js/bootstrap.js',
-        '/bower/d3.chart/d3.chart.js',
-        '/bower/highcharts-release/highcharts.js',
-        '/bower/jquery-equal-height/af.equal-height.js',
-        '/bower/jquery-or/js/jquery.or.js'
-        //'/bower/nvd3/nv.d3.js',
-        //'/bower/jquery-placeholder/jquery.placeholder.js'
+        '/bower/es6-shim/es6-shim.js',
+        '/bower/datejs/build/date-en-GB.js',
+        '/bower/fastclick/lib/fastclick.js',
+        '/bower/jquery-legacy/jquery.js',
+        '/bower/underscore/underscore.js',
+        '/vendor/browserify.js',
+        '/bower/d3/d3.js'
     ], function() {
         $script([
-            //'/bower/highcharts-release/modules/exporting.js',
-            '/js/charts/chart.CircleChart.js',
-            '/bower/ngstorage/ngStorage.js',
-            '/bower/angular-i18n/angular-locale_en-gb.js',
-            '/bower/angular-resource/angular-resource.js',
-            '/bower/angular-route/angular-route.js',
-            '/bower/ng-prettyjson/src/ng-prettyjson.js'
+            '/bower/angular/angular.js',
+            '/bower/bootstrap-css/js/bootstrap.js',
+            '/bower/d3.chart/d3.chart.js',
+            '/bower/highcharts-release/highcharts.js',
+            '/bower/jquery-equal-height/af.equal-height.js',
+            '/bower/jquery-or/js/jquery.or.js'
+            //'/bower/nvd3/nv.d3.js',
+            //'/bower/jquery-placeholder/jquery.placeholder.js'
         ], function() {
             $script([
-                '/angular/app.js'
+                //'/bower/highcharts-release/modules/exporting.js',
+                '/js/charts/chart.CircleChart.js',
+                '/bower/ngstorage/ngStorage.js',
+                '/bower/angular-i18n/angular-locale_en-gb.js',
+                '/bower/angular-resource/angular-resource.js',
+                '/bower/angular-route/angular-route.js',
+                '/bower/ng-prettyjson/src/ng-prettyjson.js'
             ], function() {
                 $script([
-                    '/angular/controller/controller.edit.js',
-                    '/angular/controller/controller.list.js',
-                    '/angular/directive/directive.infographic.js',
-                    '/angular/directive/directive.infographic.static.js',
-                    '/angular/directive/directive.json-editor.js',
-                    '/angular/services/service.util.js',
-                    '/angular/filters.js',
-                    '/angular/resources.js',
-                    '/angular/routes.js'
-                ], function(){
+                    '/angular/app.js'
+                ], function() {
                     $script([
-                        '/js/init.js'
+                        '/angular/controller/controller.edit.js',
+                        '/angular/controller/controller.list.js',
+                        '/angular/directive/directive.infographic.js',
+                        '/angular/directive/directive.infographic.static.js',
+                        '/angular/directive/directive.json-editor.js',
+                        '/angular/services/service.util.js',
+                        '/angular/filters.js',
+                        '/angular/resources.js',
+                        '/angular/routes.js'
                     ], function(){
+                        $script([
+                            '/js/init.js'
+                        ], function(){
+                        });
                     });
                 });
             });

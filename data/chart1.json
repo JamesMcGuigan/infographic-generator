@@ -1,29 +1,7 @@
 {
     "title": "Example Infographic 1",
-    "defaults": {
-        "image": {
-            "attr": {
-                "height": "inherit",
-                "width": "inherit",
-                "preserveAspectRatio": "xMinYMin slice"
-            }
-        },
-        "text": {
-            "attr": {
-                "font-size": "24px",
-                "line-height": "24px",
-                "font-family": "Helvetica Neue",
-                "fill": "white"
-            },
-            "align": "TopLeft"
-        },
-        "chart": {
-            "font-size":   "12px",
-            "line-height": "12px",
-            "font-family": "Helvetica Neue",
-            "fill":        "white"
-        }
-    },
+    "defaultsURL": "/data/sources/defaults.json",
+
     "type": "svg",
     "label": "Root Node",
     "attr": {
@@ -91,36 +69,7 @@
                         "width":  400
                     },
                     "margin": 10,
-                    "data": {
-                        "values": {
-                            "Zabaleta": 217,
-                            "Mascherano": 442,
-                            "Lahm": 421,
-                            "Kroos": 418,
-                            "Schweinsteiger": 294,
-                            "Mertestacker": 292,
-                            "Gago": 277,
-                            "Boateng": 270,
-                            "Garay": 277,
-                            "Boateng": 270,
-                            "Garay": 267,
-                            "Ozil": 248
-                        },
-                        "colors": {
-                            "Mascherano": "lightBlue",
-                            "Lahm": "white",
-                            "Kroos": "white",
-                            "Schweinsteiger": "white",
-                            "Mertestacker": "white",
-                            "Gago": "lightBlue",
-                            "Boateng": "white",
-                            "Garay": "white",
-                            "Boateng": "white",
-                            "Garay": "lightBlue",
-                            "Ozil": "white",
-                            "Zabaleta": "lightBlue"
-                        }
-                    }
+                    "dataURL": "/data/sources/player-passes.json"
                 }
             ]
         }

@@ -1,29 +1,7 @@
 {
     "title": "Example Infographic 2",
-    "defaults": {
-        "image": {
-            "attr": {
-                "height": "inherit",
-                "width": "inherit",
-                "preserveAspectRatio": "xMinYMin slice"
-            }
-        },
-        "text": {
-            "attr": {
-                "font-size": "24px",
-                "line-height": "24px",
-                "font-family": "Helvetica Neue",
-                "fill": "white"
-            },
-            "align": "TopLeft"
-        },
-        "chart": {
-            "font-size":   "12px",
-            "line-height": "12px",
-            "font-family": "Helvetica Neue",
-            "fill":        "white"
-        }
-    },
+    "defaultsURL": "/data/sources/defaults.json",
+
     "type": "svg",
     "label": "Root Node",
     "attr": {
@@ -73,13 +51,14 @@
             "children": [
                 {
                     "type": "text",
-                    "content": "Against Brazil, #{inside} of Mexico's #{total} shots\n where taken from outside the area",
+                    "content": "Against Brazil, #{values.outside} of Mexico's #{stats.total} shots\n where taken from outside the area",
                     "attr": {
                         "font-size": "16px",
                         "line-height": "20px"
                     },
                     "margin": 10,
-                    "align": "TopLeft"
+                    "align": "TopLeft",
+                    "dataURL": "/data/sources/mexico-brazil-shots.json"
                 },
                 {
                     "type":  "chart",
@@ -94,40 +73,35 @@
                         "r": [10,5]
                     },
                     "margin": 10,
-                    "data": {
-                        "values": {
-                            "inside":   2,
-                            "outside": 13
-                        },
-                        "colors": {
-                            "inside":  ["green","white"],
-                            "outside": ["grey","transparent"]
-                        }
-                    }
+                    "dataURL": "/data/sources/mexico-brazil-shots.json"
                 },
                 {
-                    "type":  "chart",
+                    "type": "chart",
                     "chart": "DotChart",
                     "align": "BottomRight",
                     "attr": {
-                        "height": 170,
-                        "width":  100,
+                        "height": 130,
+                        "width": 100,
                         "fill": "green"
                     },
                     "margin": 10,
-                    "data": {
-                        "values": {
-                            "inside":   2,
-                            "outside": 11
-                        },
-                        "colors": {
-                            "inside":  "grey",
-                            "outside": "green"
-                        }
-                    }
+                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                },
+                {
+                    "type": "text",
+                    "content": "#{values.outside} / #{stats.total}",
+                    "attr": {
+                        "x": "-80px",
+                        "y": "-160px",
+                        "font-size": "20px",
+                        "line-height": "20px"
+                    },
+                    "margin": 10,
+                    "align": "BottomRight",
+                    "dataURL": "/data/sources/mexico-brazil-shots.json"
                 }
             ]
         }
     ],
-    "uuid": "file:chart1.json"
+    "uuid": "file:chart2.json"
 }

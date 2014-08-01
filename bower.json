@@ -16,6 +16,9 @@
     "tests"
   ],
   "dependencies": {
+    "es5-shim":            "*",
+    "es6-shim":            "*",
+    "array-generics":      "plusdude/array-generics",
     "angular":             "*",
     "angular-i18n":        "*",
     "angular-route":       "*",

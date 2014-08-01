@@ -170,7 +170,7 @@ angular.module('infographicApp.directives')
                                     var textWidth    = 120;
                                     var valueWidth   = 40;
                                     var valueOffsetX = +10;
-                                    var textOffsetY  = 1;
+                                    var textOffsetY  = 3;
                                     var rowHeight    = svg.height / data.length;
                                     var barHeight    = rowHeight * 0.8;
                                     var maxValue     = Math.max.apply(Math, _.pluck(data, "value"));
@@ -183,7 +183,7 @@ angular.module('infographicApp.directives')
                                         .enter()
                                         .append("text")
                                         .attr("x", textWidth + svg.x)
-                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + svg.y + textOffsetY; })
                                         .attr("height", barHeight)
                                         .attr("text-anchor", "end")
                                         .attr("alignment-baseline", "central")
@@ -207,8 +207,9 @@ angular.module('infographicApp.directives')
                                         .append("text")
                                         .text(function(d) { return d.value; })
                                         .attr("x", function(d,i) { return textWidth * 1.1 + barScale(d.value) + valueOffsetX + svg.x; })
-                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + textOffsetY + svg.y; })
+                                        .attr("y", function(d,i) { return (i+0.5) * rowHeight + svg.y + textOffsetY; })
                                         .attr("height", barHeight)
+                                        .attr("alignment-baseline", "central")
                                         .attr("fill",  function(d) { return d.color; })
                                 }
                                 break;

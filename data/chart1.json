@@ -69,7 +69,36 @@
                         "width":  400
                     },
                     "margin": 10,
-                    "dataURL": "/data/sources/player-passes.json"
+                    "data": {
+                        "values": {
+                            "Zabaleta": 217,
+                            "Mascherano": 442,
+                            "Lahm": 421,
+                            "Kroos": 418,
+                            "Schweinsteiger": 294,
+                            "Mertestacker": 292,
+                            "Gago": 277,
+                            "Boateng": 270,
+                            "Garay": 277,
+                            "Boateng": 270,
+                            "Garay": 267,
+                            "Ozil": 248
+                        },
+                        "colors": {
+                            "Mascherano": "lightBlue",
+                            "Lahm": "white",
+                            "Kroos": "white",
+                            "Schweinsteiger": "white",
+                            "Mertestacker": "white",
+                            "Gago": "lightBlue",
+                            "Boateng": "white",
+                            "Garay": "white",
+                            "Boateng": "white",
+                            "Garay": "lightBlue",
+                            "Ozil": "white",
+                            "Zabaleta": "lightBlue"
+                        }
+                    }
                 }
             ]
         }

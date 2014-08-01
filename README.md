@@ -1,15 +1,14 @@
 Infographic Generator
 =====================
 
-Proof of concept demonstration for generating custom infographics, built in javascript using node.js, angular.js, d3.js and GraphicsMagick
+Proof of concept demonstration for generating custom infographics, built in javascript using node.js, angular.js, d3.js and GraphicsMagick.
 
 See http://infographic.jamesmcguigan.com for a live demo.
 
 
 Installation
 ============
-<pre><code>
-git clone git@github.com:JamesMcGuigan/infographic-generator.git
+<pre><code>git clone git@github.com:JamesMcGuigan/infographic-generator.git
 cd infographic-generator
 npm install  # will also download bower dependencies and compile the client side browserify.js file
 npm start
@@ -26,8 +25,7 @@ Puppet configuration
 
 Demo server deployment is managed via puppet using the following scripts:  
 https://github.com/JamesMcGuigan/puppet-config
-<pre><code>
-rake puppet
+<pre><code>rake puppet
 rake deploy[infographic.jamesmcguigan.com]
 </code></pre>
 
@@ -85,16 +83,16 @@ Any property name can be suffixed with URL to load data from a remote url, ie "d
 
 *Text Interpolation*
 - "content" strings can be include "#{values.outside} / #{stats.total}" using dot separated notation
--- "#{values.field}" reads values from "data.values"
--- "#{colors.field}" reads values from "data.colors"
--- "#{stats.length}" number of entries in data.values
--- "#{stats.max}"    maximum number in data.values
--- "#{stats.min}"    minimum number in data.values
--- "#{stats.total}"  sum of numbers in data.values
--- "#{stats.percent.field}"  percentage string (ie "85%") calculated using: values.field / stats.total
--- "#{stats.factor.value}"   number of times each individual string/number value was encountered 
---  #{stats.colors.factor.white} number of "white" entries in data.colors
-
+- "#{values.field}" reads values from "data.values"
+- "#{colors.field}" reads values from "data.colors"
+- "#{stats.length}" number of entries in data.values
+- "#{stats.max}"    maximum number in data.values
+- "#{stats.min}"    minimum number in data.values
+- "#{stats.total}"  sum of numbers in data.values
+- "#{stats.percent.field}"  percentage string (ie "85%") calculated using: values.field / stats.total
+- "#{stats.factor.value}"   number of times each individual string/number value was encountered 
+-  #{stats.colors.factor.white} number of "white" entries in data.colors
+}
 
 The JSON configuration file needs to be syntactically valid, which mostly means quoting "key": "value" (except raw numbers) 
 and making sure commas are in the correct places (after every item in a list, except the last)

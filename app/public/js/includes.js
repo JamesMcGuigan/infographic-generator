@@ -23,7 +23,7 @@ $script([
 //    '/bower/array-generics/array.generics.js',
     '/bower/d3/d3.js',
     '/bower/datejs/build/date-en-GB.js',
-    '/bower/es5-shim/es5-shim.js',
+    // '/bower/es5-shim/es5-shim.js', // breaks broswerify:github-flavoured-markdown
     '/bower/fastclick/lib/fastclick.js',
     '/bower/jquery-legacy/jquery.js',
     '/bower/underscore/underscore.js',
@@ -64,6 +64,7 @@ $script([
                         '/angular/directive/directive.infographic.js',
                         '/angular/directive/directive.infographic.static.js',
                         '/angular/directive/directive.json-editor.js',
+                        '/angular/directive/directive.markdown.js',
                         '/angular/services/service.util.js',
                         '/angular/filters.js',
                         '/angular/resources.js',

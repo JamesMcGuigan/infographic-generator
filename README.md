@@ -8,7 +8,8 @@ See http://infographic.jamesmcguigan.com for a live demo.
 
 Installation
 ============
-<pre><code>git clone git@github.com:JamesMcGuigan/infographic-generator.git
+<pre><code># packagemanager install node GraphicsMagick
+git clone git@github.com:JamesMcGuigan/infographic-generator.git
 cd infographic-generator
 npm install  # will also download bower dependencies and compile the client side browserify.js file
 npm start
@@ -23,12 +24,8 @@ See [package.json](https://github.com/JamesMcGuigan/infographic-generator/blob/m
 Puppet configuration
 ====================
 
-Demo server deployment is managed via puppet using the following scripts:  
+Demo server deployment is managed via puppet using the following project:  
 https://github.com/JamesMcGuigan/puppet-config
-<pre><code>rake puppet
-rake deploy[infographic.jamesmcguigan.com]
-</code></pre>
-
 
 
 Project Layout

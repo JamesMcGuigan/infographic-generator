@@ -54,7 +54,7 @@
       "express-error-handler": "*",
       "express-session": "*",
       "gm": "*",
-      "markdown": "*",
+      "github-flavored-markdown": "*",
       "method-override": "*",
       "mmm": "*",
       "mongojs": "*",
@@ -72,8 +72,9 @@
     "yadda": "*"
   },
   "browserify": {
-    "async":             "*",
-    "node.extend":       "*"
+    "async":                    "*",
+    "github-flavored-markdown": "*",
+    "node.extend":              "*"
   },
   "global": {
     "jsonlint":   "*",

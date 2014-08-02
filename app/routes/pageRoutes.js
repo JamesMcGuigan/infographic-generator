@@ -3,6 +3,7 @@ var _         = require("underscore");
 var async     = require('async');
 var uuid      = require('node-uuid');
 var extend    = require("node.extend");
+var express   = require("express");
 
 //var fs        = require("fs");
 //var markdown  = require("markdown").markdown;

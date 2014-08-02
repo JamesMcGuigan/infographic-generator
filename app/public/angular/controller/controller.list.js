@@ -30,11 +30,12 @@ module.controller('ListController',
             console.log('controller.list:30', '$scope.list', $scope.list);
         });
 
-        InfographicDB.get(function(response) {
-            $scope.list = $scope.list.concat(response.data);
-            console.log('InfographicDB', 'response', response.data);
-            console.log('controller.list:36', '$scope.list', $scope.list);
-        });
+        //// TODO: Mongo Not Implented Yet
+        //InfographicDB.get(function(response) {
+        //    $scope.list = $scope.list.concat(response.data);
+        //    console.log('InfographicDB', 'response', response.data);
+        //    console.log('controller.list:36', '$scope.list', $scope.list);
+        //});
 
         $scope.create = function() {
             var filename = window.prompt("Please enter a new filename","chartX.json");

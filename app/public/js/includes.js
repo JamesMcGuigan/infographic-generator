@@ -46,12 +46,13 @@ $script([
         ], function() {
             $script([
                 //'/bower/highcharts-release/modules/exporting.js',
-                '/js/charts/chart.CircleChart.js',
-                '/bower/ngstorage/ngStorage.js',
+                '/bower/angulartics/dist/angulartics.min.js',
+                '/bower/angulartics/dist/angulartics-ga.min.js',
                 '/bower/angular-i18n/angular-locale_en-gb.js',
                 '/bower/angular-resource/angular-resource.js',
                 '/bower/angular-route/angular-route.js',
-                '/bower/ng-prettyjson/src/ng-prettyjson.js'
+                '/bower/ng-prettyjson/src/ng-prettyjson.js',
+                '/bower/ngstorage/ngStorage.js'
             ], function() {
                 $script([
                     '/angular/app.js'

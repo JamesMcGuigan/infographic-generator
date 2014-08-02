@@ -25,7 +25,7 @@
         };
     </script>
 
-
+    {{> includes/google-analyitics-infographic }}
     {{> includes/css-includes }}
     {{> includes/js-includes-head }}
 </head>

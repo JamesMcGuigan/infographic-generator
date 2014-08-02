@@ -2,6 +2,8 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('infographicApp', [
+    'angulartics',
+    'angulartics.google.analytics',
     'infographicApp.config',
     'infographicApp.controllers',
     'infographicApp.directives',

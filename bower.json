@@ -23,6 +23,7 @@
     "angular-i18n":        "*",
     "angular-route":       "*",
     "angular-resource":    "*",
+    "angulartics":         "*",
     "ng-prettyjson":       "*",
     "bootstrap-css":       "*",
     "css3pie":             "*",

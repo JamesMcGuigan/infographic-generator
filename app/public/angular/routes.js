@@ -1,4 +1,4 @@
-angular.module('infographicApp.routes',['ngRoute']).config(["$routeProvider",
+angular.module('infographicApp.routes',['ngRoute','angulartics','angulartics.google.analytics']).config(["$routeProvider",
     function($routeProvider) {
         $routeProvider.otherwise(        { redirectTo: "/list" });
         $routeProvider.when("/list",     { templateUrl: "html/list.html", controller: "ListController" });

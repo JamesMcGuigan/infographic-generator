@@ -25,9 +25,9 @@
         };
     </script>
 
-    {{> includes/google-analyitics-infographic }}
     {{> includes/css-includes }}
     {{> includes/js-includes-head }}
+    {{> includes/google-analyitics-infographic }}
 </head>
 <body lang="{{lang}}">
     {{> partials/forkmegithub }}

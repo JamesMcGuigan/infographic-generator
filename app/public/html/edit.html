@@ -5,13 +5,15 @@
     <pre id="infographic"><svg infographic="config"></svg></pre>
 
     <h3>ImageMagick Static Rendering
-        <button class="btn btn-success generate-infographic" analytics-on>Generate Infographic JPEG</button>
+        <button class="btn btn-success generate-infographic" analytics-on="click"
+                analytics-category="Commands" analytics-event="Generate Infographic" analytics-label="{{config.uuid}}">Generate Infographic JPEG</button>
     </h3>
     <pre id="preview"><div infographic-static json="config" svg-selector="'#infographic svg'" button-selector="'.generate-infographic'"></div></pre>
 
     <h3>Infographic Configuration File</h3>
     <pre id="code"><!--
      --><textarea class="code" ng-model="config" json-editor></textarea><!--
-     --><h3><button style="float: right" class="btn btn-success generate-infographic" ng-click="save(config)" analytics-on>Save Configuration</button></h3><!--
+     --><h3><button style="float: right" class="btn btn-success generate-infographic" ng-click="save(config)"
+                    analytics-on="click" analytics-category="Commands" analytics-event="Save" analytics-label="{{config.uuid}}">Save Configuration</button></h3><!--
     --></pre>
 </form>

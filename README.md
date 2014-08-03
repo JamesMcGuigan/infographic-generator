@@ -3,8 +3,8 @@ Infographic Generator
 
 Proof of concept demonstration for generating custom infographics, built in javascript using node.js, angular.js, d3.js and GraphicsMagick.
 
-See http://infographic.jamesmcguigan.com for a live demo.
-See https://production.infographic.jamesmcguigan.com - live SSL demo with minified js/css
+- http://infographic.jamesmcguigan.com - live demo with unminified sources
+- https://production.infographic.jamesmcguigan.com - live SSL demo with minified js/css
 
 Installation
 ============

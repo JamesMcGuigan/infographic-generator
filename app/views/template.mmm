@@ -17,11 +17,13 @@
 
     <script>
         window.config = {
-            lang: "{{lang}}",
-            language: "{{language}}",
-            dir: "{{direction}}",
-            host: "{{config.web.host}}",
-            port: "{{config.web.port.http}}"
+            lang:       "{{lang}}",
+            language:   "{{language}}",
+            dir:        "{{direction}}",
+            host:       "{{config.web.host}}",
+            port:       "{{config.web.port.http}}",
+            NODE_ENV:   "{{NODE_ENV}}",
+            production: "{{production}}"
         };
     </script>
 
@@ -45,7 +47,7 @@
         </div>
     </div>
     <div id="javascript-includes">
-        {{> includes/js-includes }}
+        {{> includes/js-includes-foot }}
         {{> includes/js-init }}
     </div>
 </body>

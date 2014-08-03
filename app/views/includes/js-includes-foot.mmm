@@ -1,0 +1,6 @@
+{{#production}}
+<div id="javascript-includes">
+    <script src="/production/includes.production.libs.min.js"></script>
+    <script src="/production/includes.production.code.min.js"></script>
+</div>
+{{/production}}

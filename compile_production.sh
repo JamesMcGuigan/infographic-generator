@@ -1,15 +1,26 @@
 #!/bin/bash
 
-cd "$(dirname "$0")"
-mkdir -p production
-rm    -v production/includes.production.*.js
+PATH="$PATH:./node_modules/.bin/"
 
-CODE_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" app/public/js/includes.js |
+cd "$(dirname "$0")"
+rm    -rvf ./production
+mkdir -p   ./production
+
+
+# compile /production/scss/
+compass compile -e production --force
+
+# compile /vendor/browserify.js
+node ./compile_browserify.js
+
+# compile /production/includes.production.libs.js
+# compile /production/includes.production.code.js
+CODE_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*(\/\/.*)?\$/" app/public/js/includes.js |
     perl -p -e 's!^\.?/(js|angular)/!./app/public/$1/!' | 
     # grep -v browserify.js |
     grep '^\./app/public/'  );
 
-LIBS_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" app/public/js/includes.js |
+LIBS_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*(\/\/.*)?\$/" app/public/js/includes.js |
     perl -p -e 's!^\.?/(js|angular)/!./app/public/$1/!' | 
     # grep -v browserify.js |
     grep '\./\(vendor\|bower\)/' );

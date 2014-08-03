@@ -20,11 +20,13 @@ module.exports = function(app){
         var render = {};
         // render.user = request.isAuthenticated() ? request.user : null; // requires passport
 
-        render.text      = require("../views/text/english.js");
-        render.lang      = "en";
-        render.apilang   = "eng";
-        render.language  = "english";
-        render.direction = "ltr";
+        render.text       = require("../views/text/english.js");
+        render.lang       = "en";
+        render.apilang    = "eng";
+        render.language   = "english";
+        render.direction  = "ltr";
+        render.NODE_ENV   = process.env.NODE_ENV;
+        render.production = !!(render.NODE_ENV === "production");
 
         render.layout = "template";
         render.urls = require("../views/text/urls.js")(request, render);

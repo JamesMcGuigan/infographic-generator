@@ -1,7 +1,9 @@
+@import "compass/reset";
 @import "compass/css3";
+@import "../../../bower/github-markdown-css/github-markdown.css";
+@import "../../../bower/bootstrap-scss/assets/stylesheets/bootstrap.scss";
 @import "includes/settings";
 //@import "../img/sprite/sprite";
 @import "includes/ie";
-
-@import "elements";
+@import "includes/elements";
 

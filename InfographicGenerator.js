@@ -84,6 +84,7 @@ app.use(                express.static(__dirname + '/app/public'));
 app.use('/bower',       express.static(__dirname + '/bower'));
 app.use('/data',        express.static(__dirname + '/data'));
 app.use('/vendor',      express.static(__dirname + '/vendor'));
+app.use('/production',  express.static(__dirname + '/production'));
 app.use('/README.md',   express.static(__dirname + '/README.md'));
 
 app.use(connectDomain()); // allow express to output propper stack traces

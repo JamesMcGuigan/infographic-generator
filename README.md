@@ -4,7 +4,7 @@ Infographic Generator
 Proof of concept demonstration for generating custom infographics, built in javascript using node.js, angular.js, d3.js and GraphicsMagick.
 
 See http://infographic.jamesmcguigan.com for a live demo.
-
+See https://production.infographic.jamesmcguigan.com - live SSL demo with minified js/css
 
 Installation
 ============
@@ -12,7 +12,11 @@ Installation
 git clone git@github.com:JamesMcGuigan/infographic-generator.git
 cd infographic-generator
 npm install  # will also download bower dependencies and compile the client side browserify.js file
-npm start
+npm start    # runs nodemon and compass for development
+
+# For production deployment
+npm run production  # compiles minified js/css into ./production/
+node InfographicGenerator.js NODE_ENV=production PORT_HTTP=4000 PORT_HTTPS=4001
 </code></pre>
 
 Then open up the following localhost url

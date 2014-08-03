@@ -1,0 +1,25 @@
+/* line 2, ../../scss-src/includes/elements.scss */
+textarea.code {
+  width: 100%;
+}
+
+/* line 7, ../../scss-src/includes/elements.scss */
+input.ng-invalid,
+textarea.ng-invalid {
+  border: 2px solid red;
+}
+
+/* line 10, ../../scss-src/includes/elements.scss */
+form.ng-invalid button {
+  display: none;
+}
+
+/* line 20, ../../scss-src/includes/elements.scss */
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  vertical-align: middle;
+}

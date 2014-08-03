@@ -818,7 +818,7 @@ module.exports = function (Buffer, Hash) {
   return Sha1
 }
 
-},{"util":21}],10:[function(require,module,exports){
+},{"util":22}],10:[function(require,module,exports){
 
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
@@ -983,7 +983,7 @@ module.exports = function (Buffer, Hash) {
 
 }
 
-},{"./util":11,"util":21}],11:[function(require,module,exports){
+},{"./util":11,"util":22}],11:[function(require,module,exports){
 exports.write = write
 exports.zeroFill = zeroFill
 
@@ -3324,13 +3324,79 @@ if (typeof Object.create === 'function') {
 }
 
 },{}],20:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],21:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
+(function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3918,7 +3984,9 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-},{"./support/isBuffer":20,"inherits":19}],"async":[function(require,module,exports){
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":21,"_process":20,"inherits":19}],"async":[function(require,module,exports){
+(function (process){
 /*!
  * async
  * https://github.com/caolan/async
@@ -5043,7 +5111,8 @@ function hasOwnProperty(obj, prop) {
 
 }());
 
-},{}],"github-flavored-markdown":[function(require,module,exports){
+}).call(this,require('_process'))
+},{"_process":20}],"github-flavored-markdown":[function(require,module,exports){
 //
 // showdown.js -- A javascript port of Markdown.
 //

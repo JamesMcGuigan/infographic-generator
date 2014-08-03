@@ -2,7 +2,7 @@
 
 # Set this to the root of your project when deployed:
 http_path       = "/app/public"
-css_dir         = "/app/public/scss/"
+css_dir         = (environment == :production) ? "/production/css/" : "/app/public/scss/"
 sass_dir        = "/app/public/scss-src/"
 images_dir      = "/app/public/img"
 javascripts_dir = "/app/public/js"

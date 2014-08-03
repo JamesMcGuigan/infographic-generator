@@ -34,8 +34,7 @@
     "autosprite_refresh": "./app/public/img/sprite/scripts/autosprite.sh --refresh && compass compile",
     "browserify":         "node compile_browserify.js",
 
-    "production":         "npm run browserify && npm run production_js && npm run production_css",
-    "production_js":      "./compile_production_js.sh",
+    "production":         "./compile_production.sh",
     "production_css":     "compass compile -e production --force",
 
     "code_dependancies":  "./compile_npm_dependencies.sh"
@@ -67,19 +66,17 @@
       "unirest": "*"
   },
   "devDependencies": {
+    "browserify": "*",
+    "jsonlint":  "*",
     "karma": "*",
-    "nodemon": "*",
     "mocha": "*",
+    "nodemon": "*",
+    "uglify-js": "*",
     "yadda": "*"
   },
   "browserify": {
     "async":                    "*",
     "github-flavored-markdown": "*",
     "node.extend":              "*"
-  },
-  "globals": {
-    "jsonlint":       "*",
-    "browserify":     "*",
-    "uglifyjs":       "*"
   }
 }

@@ -3,4 +3,10 @@
     <script src="/bower/nwmatcher/src/nwmatcher.js"></script>
 <![endif]-->
 
-<script src="/js/includes.js"></script>
+{{^production}}
+    <script src="/js/includes.js"></script>
+{{/production}}
+
+
+
+

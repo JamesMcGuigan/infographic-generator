@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "install":            "bower install --allow-root; npm run browserify",
+    "install_globals":    "node -p -e \"require('underscore').keys(require('./package.json').globals).join(' ')\" | xargs sudo npm install -g ",
 
     "start":              "compass compile & compass watch & npm run nodemon",
     "test":               "mocha   test/InfographicGeneratorTest.js;",
@@ -76,8 +77,9 @@
     "github-flavored-markdown": "*",
     "node.extend":              "*"
   },
-  "global": {
-    "jsonlint":   "*",
-    "browserify": "*"
+  "globals": {
+    "jsonlint":       "*",
+    "browserify":     "*",
+    "uglifyjs":       "*"
   }
 }

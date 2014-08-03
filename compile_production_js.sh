@@ -4,13 +4,13 @@ cd "$(dirname "$0")"
 mkdir -p production
 rm    -v production/includes.production.*.js
 
-CODE_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" public/js/includes.js | 
-    perl -p -e 's!^\.?/(js|angular)/!./public/$1/!' | 
+CODE_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" app/public/js/includes.js |
+    perl -p -e 's!^\.?/(js|angular)/!./app/public/$1/!' | 
     # grep -v browserify.js |
-    grep '^\./public/'  );
+    grep '^\./app/public/'  );
 
-LIBS_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" public/js/includes.js | 
-    perl -p -e 's!^\.?/(js|angular)/!./public/$1/!' | 
+LIBS_FILES=$( perl -n -e "print \".\$1\n\" if m/^\s*['\"](\S+)['\"],?\s*\$/" app/public/js/includes.js |
+    perl -p -e 's!^\.?/(js|angular)/!./app/public/$1/!' | 
     # grep -v browserify.js |
     grep '\./\(vendor\|bower\)/' );
 

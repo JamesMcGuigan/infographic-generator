@@ -20,23 +20,24 @@
 
 // load all of the dependencies asynchronously.
 $script([
-//    '/bower/array-generics/array.generics.js',
-    '/bower/d3/d3.js',
-    '/bower/datejs/build/date-en-GB.js',
-    // '/bower/es5-shim/es5-shim.js', // breaks broswerify:github-flavoured-markdown
+    '/vendor/firebugx/firebugx.js',
+    '/vendor/polyfills/storage.js',
     '/bower/fastclick/lib/fastclick.js',
+
     '/bower/jquery-legacy/jquery.js',
     '/bower/underscore/underscore.js',
-    '/vendor/browserify.js',
-    '/vendor/firebugx/firebugx.js',
-    '/vendor/polyfills/storage.js'
+    '/bower/datejs/build/date-en-GB.js',
+    '/bower/angular/angular.js',
+    '/bower/d3/d3.js',
+    '/vendor/browserify.js'
+    // '/bower/array-generics/array.generics.js',
+    // '/bower/es5-shim/es5-shim.js', // breaks broswerify:github-flavoured-markdown
 ], function() {
     $script([
-        '/bower/bootstrap-css/js/bootstrap.js',
-        '/bower/angular/angular.js',
-        '/bower/d3.chart/d3.chart.js',
-        '/bower/es6-shim/es6-shim.js'
-
+        '/bower/es6-shim/es6-shim.js',               // depends es5-shim.js
+        '/bower/bootstrap-css/js/bootstrap.js',      // depends jQuery
+        '/bower/d3.chart/d3.chart.js',               // depends d3
+        '/bower/angulartics/dist/angulartics.min.js' // depends angular
         //'/bower/highcharts-release/highcharts.js',
         //'/bower/jquery-equal-height/af.equal-height.js',
         //'/bower/jquery-or/js/jquery.or.js'
@@ -44,36 +45,32 @@ $script([
         //'/bower/jquery-placeholder/jquery.placeholder.js'
     ], function() {
         $script([
-            '/bower/angulartics/dist/angulartics.min.js'
+            '/bower/angular-i18n/angular-locale_en-gb.js',
+            '/bower/angular-resource/angular-resource.js',
+            '/bower/angular-route/angular-route.js',
+            '/bower/angulartics/dist/angulartics-ga.min.js',  // depends angulartics
+            '/bower/ng-prettyjson/src/ng-prettyjson.js',
+            '/bower/ngstorage/ngStorage.js'
+            //'/bower/highcharts-release/modules/exporting.js',
         ], function() {
             $script([
-                //'/bower/highcharts-release/modules/exporting.js',
-                '/bower/angulartics/dist/angulartics-ga.min.js',
-                '/bower/angular-i18n/angular-locale_en-gb.js',
-                '/bower/angular-resource/angular-resource.js',
-                '/bower/angular-route/angular-route.js',
-                '/bower/ng-prettyjson/src/ng-prettyjson.js',
-                '/bower/ngstorage/ngStorage.js'
+                '/angular/app.js'
             ], function() {
                 $script([
-                    '/angular/app.js'
-                ], function() {
+                    '/angular/controller/controller.edit.js',
+                    '/angular/controller/controller.list.js',
+                    '/angular/directive/directive.infographic.js',
+                    '/angular/directive/directive.infographic.static.js',
+                    '/angular/directive/directive.json-editor.js',
+                    '/angular/directive/directive.markdown.js',
+                    '/angular/services/service.util.js',
+                    '/angular/filters.js',
+                    '/angular/resources.js',
+                    '/angular/routes.js'
+                ], function(){
                     $script([
-                        '/angular/controller/controller.edit.js',
-                        '/angular/controller/controller.list.js',
-                        '/angular/directive/directive.infographic.js',
-                        '/angular/directive/directive.infographic.static.js',
-                        '/angular/directive/directive.json-editor.js',
-                        '/angular/directive/directive.markdown.js',
-                        '/angular/services/service.util.js',
-                        '/angular/filters.js',
-                        '/angular/resources.js',
-                        '/angular/routes.js'
+                        '/js/init.js'
                     ], function(){
-                        $script([
-                            '/js/init.js'
-                        ], function(){
-                        });
                     });
                 });
             });

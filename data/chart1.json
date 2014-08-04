@@ -14,24 +14,12 @@
             "type": "image",
             "label": "Background Image",
             "attr": {
-                "xlink:href": "http://www.sport-kingston.co.uk/Football-330vlarge.jpg"
+                "xlink:href": "http://slowbuddy.com/wp-content/gallery/aeroplane-images/aeroplane-1.jpg"
             }
         },
         {
-            "type": "image",
-            "label": "Watermark Image",
-            "attr": {
-                "height": 35,
-                "width": 195,
-                "xlink:href": "http://matchstory.co.uk/wp-content/uploads/2013/08/ms_web_logo3.png",
-                "preserveAspectRatio": "xMaxYMax meet"
-            },
-            "margin": 10,
-            "align": "BottomLeft"
-        },
-        {
             "type": "text",
-            "content": "THE MEN WHO'LL RUN THE SHOW",
+            "content": "International Tourism",
             "attr": {
                 "font-size": "24px",
                 "line-height": "24px"
@@ -51,7 +39,7 @@
             "children": [
                 {
                     "type": "text",
-                    "content": "Players who have completed the most \npasses in the two squads",
+                    "content": "International Tourist Arrivals (2012), in millions \n- Source Wikipedia",
                     "attr": {
                         "font-size": "16px",
                         "line-height": "20px"
@@ -71,32 +59,28 @@
                     "margin": 10,
                     "data": {
                         "values": {
-                            "Zabaleta": 217,
-                            "Mascherano": 442,
-                            "Lahm": 421,
-                            "Kroos": 418,
-                            "Schweinsteiger": 294,
-                            "Mertestacker": 292,
-                            "Gago": 277,
-                            "Boateng": 270,
-                            "Garay": 277,
-                            "Boateng": 270,
-                            "Garay": 267,
-                            "Ozil": 248
+                            "France": 83,
+                            "USA": 66.7,
+                            "Spain": 57.5,
+                            "China": 57.7,
+                            "Italy": 46.4,
+                            "Turkey": 35.7,
+                            "Germany": 30.4,
+                            "UK": 29.3,
+                            "Russia": 25.7,
+                            "Thailand": 22.4
                         },
                         "colors": {
-                            "Mascherano": "lightBlue",
-                            "Lahm": "white",
-                            "Kroos": "white",
-                            "Schweinsteiger": "white",
-                            "Mertestacker": "white",
-                            "Gago": "lightBlue",
-                            "Boateng": "white",
-                            "Garay": "white",
-                            "Boateng": "white",
-                            "Garay": "lightBlue",
-                            "Ozil": "white",
-                            "Zabaleta": "lightBlue"
+                            "France":   "lightBlue",
+                            "USA":      "white",
+                            "Spain":    "yellow",
+                            "China":    "red",
+                            "Italy":    "lightGreen",
+                            "Turkey":   "red",
+                            "Germany":  "black",
+                            "UK":       "white",
+                            "Russia":   "red",
+                            "Thailand": "orange"
                         }
                     }
                 }

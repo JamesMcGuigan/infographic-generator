@@ -1,0 +1,12 @@
+{
+    "values": {
+        "lizards": 3,
+        "puppies": 7,
+        "kittens": 11
+    },
+    "colors": {
+        "puppies": "lightBlue",
+        "kittens": "white",
+        "lizards": "green"
+    }
+}

@@ -14,25 +14,15 @@
             "type": "image",
             "label": "Background Image",
             "attr": {
-                "xlink:href": "/img/Football-Players-soccer-478091_1024_768.jpg"
+                "xlink:href": "http://kookiecreatures.com/wp-content/uploads/2012/05/puppy-and-kitten.jpg"
             }
         },
         {
-            "type": "image",
-            "label": "Watermark Image",
-            "attr": {
-                "height": 35,
-                "width": 195,
-                "xlink:href": "http://matchstory.co.uk/wp-content/uploads/2013/08/ms_web_logo3.png",
-                "preserveAspectRatio": "xMaxYMax meet"
-            },
-            "margin": 10,
-            "align": "BottomRight"
-        },
-        {
             "type": "text",
-            "content": "MEXICO",
+            "content": "Prefered \nPets",
             "attr": {
+                "x": "-0px",
+                "y": "-0px",
                 "font-size": "24px",
                 "line-height": "24px"
             },
@@ -43,27 +33,27 @@
             "type": "rect",
             "attr": {
                 "height": 250,
-                "width": 400,
+                "width": 320,
                 "fill-opacity": 0.5,
-                "fill": "black"
+                "fill": "pink"
             },
-            "align": "MiddleRight",
+            "align": "BottomLeft",
             "children": [
                 {
                     "type": "text",
-                    "content": "Against Brazil, #{values.outside} of Mexico's #{stats.total} shots\n where taken from outside the area",
+                    "content": "#{values.kittens} out of #{stats.total} people prefer kittens (#{colors.kittens})\n over puppies (#{colors.puppies}) or lizards (#{colors.lizards})",
                     "attr": {
                         "font-size": "16px",
                         "line-height": "20px"
                     },
                     "margin": 10,
                     "align": "TopLeft",
-                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                    "dataURL": "/data/sources/kittens.json"
                 },
                 {
                     "type":  "chart",
                     "chart": "DonutChart",
-                    "align": "BottomLeft",
+                    "align": "BottomRight",
                     "attr": {
                         "height": 150,
                         "width":  150,
@@ -77,45 +67,45 @@
                         }
                     },
                     "margin": 20,
-                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                    "dataURL": "/data/sources/kittens.json"
                 },
                 {
                     "type": "text",
-                    "content": "#{stats.percent.outside}",
+                    "content": "#{stats.percent.kittens}",
                     "attr": {
-                        "x": "65px",
+                        "x": "-105px",
                         "y": "-95px",
                         "font-size": "20px",
                         "line-height": "20px"
                     },
                     "margin": 10,
-                    "align": "BottomLeft",
-                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                    "align": "BottomRight",
+                    "dataURL": "/data/sources/kittens.json"
                 },
                 {
                     "type": "chart",
                     "chart": "DotChart",
-                    "align": "BottomRight",
+                    "align": "BottomLeft",
                     "attr": {
                         "height": 130,
                         "width": 100,
                         "fill": "green"
                     },
                     "margin": 10,
-                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                    "dataURL": "/data/sources/kittens.json"
                 },
                 {
                     "type": "text",
-                    "content": "#{values.outside} / #{stats.total}",
+                    "content": "#{values.kittens} / #{stats.total}",
                     "attr": {
-                        "x": "-80px",
+                        "x": "20px",
                         "y": "-160px",
                         "font-size": "20px",
                         "line-height": "20px"
                     },
                     "margin": 10,
-                    "align": "BottomRight",
-                    "dataURL": "/data/sources/mexico-brazil-shots.json"
+                    "align": "BottomLeft",
+                    "dataURL": "/data/sources/kittens.json"
                 }
             ]
         }

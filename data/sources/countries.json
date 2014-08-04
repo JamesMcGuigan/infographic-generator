@@ -1,0 +1,28 @@
+{
+    "data": {
+        "values": {
+            "France": 83,
+            "USA": 66.7,
+            "Spain": 57.5,
+            "China": 57.7,
+            "Italy": 46.4,
+            "Turkey": 35.7,
+            "Germany": 30.4,
+            "UK": 29.3,
+            "Russia": 25.7,
+            "Thailand": 22.4
+        },
+        "colors": {
+            "France":   "lightBlue",
+            "USA":      "white",
+            "Spain":    "yellow",
+            "China":    "red",
+            "Italy":    "lightGreen",
+            "Turkey":   "red",
+            "Germany":  "black",
+            "UK":       "white",
+            "Russia":   "red",
+            "Thailand": "orange"
+        }
+    }
+}

@@ -23,8 +23,8 @@ var config = {
     },
 
     sslcert: {
-        key:  fs.readFileSync(path.join(__dirname, '../sslcert/san/infographic.san.key'), 'utf8'),
-        cert: fs.readFileSync(path.join(__dirname, '../sslcert/san/infographic.san.crt'), 'utf8')
+        key:  fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic.san.key'), 'utf8'),
+        cert: fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic.san.crt'), 'utf8')
     },
     basicAuth: {
         realm: "Infographic Generator",
@@ -82,8 +82,8 @@ module.exports = {
         web: {
             host: "http://staging.infographic.jamesmcguigan.com",
             port: {
-                http:  4000,
-                https: 4001
+                http:  3010,
+                https: 3011
             }
         }
     }),
@@ -92,8 +92,8 @@ module.exports = {
         web: {
             host: "http://infographic.jamesmcguigan.com",
             port: {
-                http:  4000,
-                https: 4001
+                http:  3012,
+                https: 3013
             }
         }
     })

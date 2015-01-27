@@ -16,7 +16,7 @@ npm start    # runs nodemon and compass for development
 
 # For production deployment
 npm run production  # compiles minified js/css into ./production/
-node InfographicGenerator.js NODE_ENV=production PORT_HTTP=4000 PORT_HTTPS=4001
+node InfographicGenerator.js NODE_ENV=production PORT_HTTP=3012 PORT_HTTPS=3013
 </code></pre>
 
 Then open up the following localhost url

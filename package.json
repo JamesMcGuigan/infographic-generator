@@ -48,6 +48,7 @@
       "connect-flash": "*",
       "connect-mongo": "*",
       "cookie-parser": "*",
+      "crypto-browserify": "*",
       "email-validator": "*",
       "exec-sync": "*",
       "express": "*",

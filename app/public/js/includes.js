@@ -45,7 +45,7 @@ $script([
         //'/bower/jquery-placeholder/jquery.placeholder.js'
     ], function() {
         $script([
-            '/bower/angulartics/dist/angulartics-ga.min.js',  // depends angulartics
+            '/bower/angulartics-google-analytics/dist/angulartics-ga.min.js',  // depends angulartics
             '/bower/angular-route/angular-route.js',
             '/bower/angular-i18n/angular-locale_en-gb.js',
             '/bower/angular-resource/angular-resource.js',

@@ -50,7 +50,6 @@
       "cookie-parser": "*",
       "crypto-browserify": "*",
       "email-validator": "*",
-      "exec-sync": "*",
       "express": "*",
       "express-error-handler": "*",
       "express-session": "*",

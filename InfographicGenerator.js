@@ -8,9 +8,9 @@ process.argv.forEach(function (value, index, array) {
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 // Regenerate SSL certs if key is missing (*.key is in .gitignore)
-if( !require('fs').existsSync("sslcert/san/infographic.san.key") ) {
+if( !require('fs').existsSync("sslcert/san/infographic-generator.san.key") ) {
     try {
-        require('exec-sync')("sslcert/san/generate-san.sh");
+        require('child_process').execSync("sslcert/san/generate-san.sh");
     } catch(e) {}
 }
 

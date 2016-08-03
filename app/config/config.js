@@ -23,8 +23,8 @@ var config = {
     },
 
     sslcert: {
-        key:  fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic.san.key'), 'utf8'),
-        cert: fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic.san.crt'), 'utf8')
+        key:  fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.key'), 'utf8'),
+        cert: fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.crt'), 'utf8')
     },
     basicAuth: {
         realm: "Infographic Generator",

@@ -34,12 +34,14 @@ var CrudFileAPI = module.exports = {
                 }
             });
         } else {
-            fs.readdir(CrudFileAPI.dirname, function (error, files) {
+            fs.readdir(CrudFileAPI.dirname, function(error, files) {
                 if( error ) { CrudFileAPI.render(response, error, null); return }
 
                 async.filter(files, function(file, done) {
-                    done( fs.lstatSync(CrudFileAPI.dirname+"/"+file).isFile() );
-                }, function(files) {
+                    fs.lstat(CrudFileAPI.dirname+"/"+file, function(error, filestats) {
+                        done( null, filestats.isFile() );
+                    })
+                }, function(error, files) {
 
                     async.map(files, function(file, done) {
                         var hash = {
@@ -49,7 +51,7 @@ var CrudFileAPI = module.exports = {
                             title: JSON.parse(fs.readFileSync(CrudFileAPI.dirname+'/'+file)).title
                         };
                         done(null, hash);
-                    }, function (error, data) {
+                    }, function(error, data) {
                         CrudFileAPI.render(response, error, data);
                     });
 

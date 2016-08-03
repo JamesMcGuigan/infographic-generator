@@ -1,6 +1,7 @@
 /* line 2, ../../scss-src/includes/elements.scss */
 textarea.code {
   width: 100%;
+  height: 20em;
 }
 
 /* line 7, ../../scss-src/includes/elements.scss */
@@ -9,12 +10,12 @@ textarea.ng-invalid {
   border: 2px solid red;
 }
 
-/* line 10, ../../scss-src/includes/elements.scss */
+/* line 11, ../../scss-src/includes/elements.scss */
 form.ng-invalid button {
   display: none;
 }
 
-/* line 20, ../../scss-src/includes/elements.scss */
+/* line 16, ../../scss-src/includes/elements.scss */
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,

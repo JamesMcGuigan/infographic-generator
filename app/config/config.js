@@ -1,5 +1,3 @@
-var fs     = require('fs');
-var path   = require('path');
 var extend = require("node.extend");
 
 var config = {
@@ -22,10 +20,10 @@ var config = {
         }
     },
 
-    sslcert: {
-        key:  fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.key'), 'utf8'),
-        cert: fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.crt'), 'utf8')
-    },
+    // sslcert: {
+    //     key:  fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.key'), 'utf8'),
+    //     cert: fs.readFileSync(path.join(__dirname, '../../sslcert/san/infographic-generator.san.crt'), 'utf8')
+    // },
     basicAuth: {
         realm: "Infographic Generator",
         user:  "info",

@@ -11,5 +11,19 @@
       "src": "/(.*)",
       "dest": "InfographicGenerator.js"
     }
+  ],
+  "headers": [
+    {
+      "source": "/production/(.*\\.css)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/css" }
+      ]
+    },
+    {
+      "source": "/production/(.*\\.js)",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript" }
+      ]
+    }
   ]
 }

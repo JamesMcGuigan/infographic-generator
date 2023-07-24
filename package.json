@@ -1,5 +1,5 @@
 {
-  "name": "Infographic-Generator",
+  "name": "infographic-generator",
   "version": "0.0.1",
   "private": true,
   "repository": {
@@ -48,11 +48,11 @@
     "connect": "*",
     "connect-domain": "*",
     "connect-flash": "*",
-    "connect-mongo": "*",
+    "connect-mongo": "3.2.0",
     "cookie-parser": "*",
     "crypto-browserify": "*",
     "email-validator": "*",
-    "express": "*",
+    "express": "^4.17.2",
     "express-error-handler": "*",
     "express-session": "*",
     "github-flavored-markdown": "*",

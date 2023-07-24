@@ -9,6 +9,8 @@ Proof of concept demonstration for generating custom infographics, built in java
 Installation
 ============
 <pre><code>
+sudo mkdir /var/log/node/;
+chmod a+rw /var/log/node/;
 sudo apt install nodejs ruby-dev ruby-rubygems graphicsmagick 
 sudo gem install compass
 

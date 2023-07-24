@@ -16,7 +16,7 @@
         "NODE_ENV": "development"
     },
     "execMap": {
-        "js": "node --harmony --debug"
+        "js": "node --harmony --inspect"
     },
     "ext": "js json"
 }

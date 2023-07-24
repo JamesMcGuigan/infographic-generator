@@ -21,7 +21,7 @@ var bodyParser     = require('body-parser');
 var compression    = require('compression');
 var errorHandler   = require('express-error-handler');
 var connect        = require('connect');
-var connectDomain  = require("connect-domain");
+// var connectDomain  = require("connect-domain");
 var cookieParser   = require('cookie-parser');
 var favicon        = require('serve-favicon');
 var flash          = require("connect-flash");
@@ -87,7 +87,7 @@ app.use('/vendor',      express.static(__dirname + '/vendor'));
 app.use('/production',  express.static(__dirname + '/production'));
 app.use('/README.md',   express.static(__dirname + '/README.md'));
 
-app.use(connectDomain()); // allow express to output propper stack traces
+// app.use(connectDomain()); // allow express to output proper stack traces | BROKEN
 
 require('./app/routes/pageRoutes.js')(app);
 require('./app/routes/APIRoutes.js')(app);

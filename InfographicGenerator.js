@@ -38,21 +38,23 @@ var session        = require('express-session');
 var MongoStore     = require('connect-mongo')(session);
 
 var app = express();
-var access_log_stream = fs.createWriteStream(config.access_log, {flags: 'a'});
-var error_log_stream  = fs.createWriteStream(config.error_log,  {flags: 'a'});
+
+//// BUGFIX: Disable logfiles on Vercel
+// var access_log_stream = fs.createWriteStream(config.access_log, {flags: 'a'});
+// var error_log_stream  = fs.createWriteStream(config.error_log,  {flags: 'a'});
 
 
 // Logging
 if( ["staging","production"].indexOf(process.env.NODE_ENV) != -1 ) {
     // TODO: http://learnboost.github.io/cluster/docs/logger.html
     app.use(morgan("short")); 				              	// log every request to the console
-    app.use(morgan("short", {stream: access_log_stream })); 					// log every request to the console
+    // app.use(morgan("short", {stream: access_log_stream }));      // BUGFIX: Disable logfiles on Vercel
     app.enable('view cache');
 }
 if( ["test","development","vagrant"].indexOf(process.env.NODE_ENV) != -1 ) {
     app.use(morgan("dev"));
-    app.use(morgan("dev", {stream: access_log_stream }));
-    app.use(errorHandler({showStack: true, dumpExceptions: true}));
+    // app.use(morgan("dev", {stream: access_log_stream }));         // BUGFIX: Disable logfiles on Vercel
+    app.use(errorHandler({ showStack: true, dumpExceptions: true }));
 }
 
 app.use(function(request, response, next) {

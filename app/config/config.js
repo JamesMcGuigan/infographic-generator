@@ -2,9 +2,11 @@ var extend = require("node.extend");
 
 var config = {
     name: 'Infographic Generator',
-    access_log: '/var/log/node/infographic-access.log',
-    error_log:  '/var/log/node/infographic-error.log',
-    debug_log:  '/var/log/node/infographic-debug.log',
+
+    //// BUGFIX: Disable logfiles on Vercel
+    // access_log: '/var/log/node/infographic-access.log',
+    // error_log:  '/var/log/node/infographic-error.log',
+    // debug_log:  '/var/log/node/infographic-debug.log',
 
     db:      'mongodb://localhost/infographicdb',
     crudPermissions: {

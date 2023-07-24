@@ -55,7 +55,8 @@
     "reset-css": "*",
     "respond": "*",
     "selectivizr": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "karma": "*",

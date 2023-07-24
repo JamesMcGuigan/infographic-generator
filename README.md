@@ -8,7 +8,10 @@ Proof of concept demonstration for generating custom infographics, built in java
 
 Installation
 ============
-<pre><code># packagemanager install node GraphicsMagick
+<pre><code>
+sudo apt install nodejs ruby-dev ruby-rubygems graphicsmagick 
+sudo gem install compass
+
 git clone git@github.com:JamesMcGuigan/infographic-generator.git
 cd infographic-generator
 npm install  # will also download bower dependencies and compile the client side browserify.js file

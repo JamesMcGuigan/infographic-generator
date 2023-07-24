@@ -1,7 +1,9 @@
 @import "compass/reset";
 @import "compass/css3";
 @import "../../../bower/github-markdown-css/github-markdown.css";
-@import "../../../bower/bootstrap-scss/assets/stylesheets/bootstrap.scss";
+// @import "../../../bower/bootstrap-scss/assets/stylesheets/bootstrap.scss";  // BUG: https://github.com/twbs/bootstrap-sass/issues/1230
+@import "../../../bower/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+
 @import "includes/settings";
 //@import "../img/sprite/sprite";
 @import "includes/ie";
